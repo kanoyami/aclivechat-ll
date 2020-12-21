@@ -37,7 +37,6 @@
 import * as chatConfig from '@/api/chatConfig'
 import { formatCurrency } from '@/utils'
 import ImgShadow from './ImgShadow.vue'
-import MembershipItem from './MembershipItem.vue'
 import PaidMessage from './PaidMessage.vue'
 import * as constants from './constants'
 
@@ -45,7 +44,6 @@ export default {
   name: 'Ticker',
   components: {
     ImgShadow,
-    MembershipItem,
     PaidMessage
   },
   props: {

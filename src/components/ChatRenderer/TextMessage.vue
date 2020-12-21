@@ -55,8 +55,14 @@
         </span>
       </yt-live-chat-author-chip>
       <div id="message" class="style-scope yt-live-chat-text-message-renderer">
-       <span> {{ content
-        }}</span><el-badge
+        <span>
+         {{ content }}
+          <img
+            style="height:45%; position:absolute;bottom:0;right:-3px;z-index:0"
+            src="/static/img/nnk/nnk.png"
+          />
+        </span>
+        <el-badge
           :value="repeated"
           :max="99"
           v-show="repeated > 1"
@@ -152,5 +158,7 @@ yt-live-chat-text-message-renderer
 }
 </style>
 
-<style src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"></style>
+<style
+  src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"
+></style>
 <style src="@/assets/css/youtube/yt-live-chat-author-chip.css"></style>

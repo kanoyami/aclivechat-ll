@@ -65,7 +65,6 @@
 import * as chatConfig from '@/api/chatConfig'
 import Ticker from './Ticker.vue'
 import TextMessage from './TextMessage.vue'
-import MembershipItem from './MembershipItem.vue'
 import PaidMessage from './PaidMessage.vue'
 import * as constants from './constants'
 import FollowMessage from './FollowMessage.vue'
@@ -82,7 +81,6 @@ export default {
   components: {
     Ticker,
     TextMessage,
-    MembershipItem,
     PaidMessage,
     JoinMessage,
     QuitMessage,

@@ -428,7 +428,7 @@ const EXAMPLE_MESSAGES = [
     authorName: 'DD头子',
     authorType: constants.AUTHRO_TYPE_ADMIN,
     userMark: 'DD',
-    content: 'yoooo',
+    content: 'yooooyooooyooooyooooyooooyooooyooooyooooyooooyooooyooooyooooyoooo',
     medal: {UperID: "35119946", ClubName: "DDKing", Level: "10"},
   },
   {
