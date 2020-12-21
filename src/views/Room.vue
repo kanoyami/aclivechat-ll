@@ -183,7 +183,6 @@ export default {
     },
     onWsMessage(event) {
       let { cmd, data } = JSON.parse(event.data);
-      window.console.log(data);
       let message = null;
       switch (cmd) {
         case COMMAND_HEARTBEAT:
