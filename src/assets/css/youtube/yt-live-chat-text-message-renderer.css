@@ -275,17 +275,23 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   );
 }
 
-#message.yt-live-chat-text-message-renderer span {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 3px solid  rgba(129,171,250,0.9);
-  padding: 5px 12px 5px 8px;
+#message.yt-live-chat-text-message-renderer span{
+  background-color: #E5E5E5;
+  padding: 5px 8px;
   display: inline-block;
   border-radius: 4px;
-  margin: 10px 0 10px 10px;
+  margin:10px 0 10px 10px;
   position: relative;
+  
 }
-
-
+#message.yt-live-chat-text-message-renderer span::after{
+  content: '';
+  border: 6px solid #ffffff00;
+  border-right: 6px solid  #E5E5E5;
+  position: absolute;
+  top: 4px;
+  left: -12px;
+}
 
 #message.yt-live-chat-text-message-renderer
   .emoji.yt-live-chat-text-message-renderer {
