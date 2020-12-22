@@ -21,6 +21,20 @@
           <el-input v-model.number="form.avatarSize" type="number" min="0"></el-input>
         </el-form-item>
 
+        <h3>{{$t('stylegen.pop')}}</h3>
+        <el-form-item :label="$t('stylegen.popUseDefault')">
+          <el-switch v-model="form.popUseDefault"></el-switch>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.popBorder')">
+         <el-color-picker show-alpha v-model="form.popBorder"></el-color-picker>
+        </el-form-item>    
+        <el-form-item :label="$t('stylegen.popBorderWidth')">
+          <el-input v-model.number="form.popBorderWidth" type="number" min="0"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.popBackgroundColor')">
+          <el-color-picker show-alpha v-model="form.popBackgroundColor"></el-color-picker>
+        </el-form-item>
+
         <h3>{{$t('stylegen.userMark')}}</h3>
         <el-form-item :label="$t('stylegen.showUserMark')">
           <el-switch v-model="form.showUserMark"></el-switch>
@@ -174,25 +188,6 @@
           <el-color-picker v-model="form.timeColor"></el-color-picker>
         </el-form-item>
 
-        <h3>{{$t('stylegen.backgrounds')}}</h3>
-        <el-form-item :label="$t('stylegen.bgColor')">
-          <el-color-picker v-model="form.bgColor" show-alpha></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.useBarsInsteadOfBg')">
-          <el-switch v-model="form.useBarsInsteadOfBg"></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.messageBgColor')">
-          <el-color-picker v-model="form.messageBgColor" show-alpha></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.ownerMessageBgColor')">
-          <el-color-picker v-model="form.ownerMessageBgColor" show-alpha></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.moderatorMessageBgColor')">
-          <el-color-picker v-model="form.moderatorMessageBgColor" show-alpha></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.memberMessageBgColor')">
-          <el-color-picker v-model="form.memberMessageBgColor" show-alpha></el-color-picker>
-        </el-form-item>
 
         <h3>{{$t('stylegen.scAndNewMember')}}</h3>
         <el-form-item :label="$t('stylegen.firstLineFont')">

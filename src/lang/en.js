@@ -98,15 +98,7 @@ export default {
     time: 'Timestamps',
     showTime: 'Show timestamps',
 
-    backgrounds: 'Backgrounds',
-    bgColor: 'Background color',
-    useBarsInsteadOfBg: 'Use bars instead of backgrounds',
-    messageBgColor: 'Message background color',
-    ownerMessageBgColor: 'Owner background color',
-    moderatorMessageBgColor: 'Moderator background color',
-    memberMessageBgColor: 'Member background color',
-
-    scAndNewMember: 'Gift / New member',
+    scAndNewMember: 'Gift',
     firstLineFont: 'First line font',
     firstLineFontSize: 'First line font size',
     firstLineLineHeight: 'First line line height (0 for default)',
@@ -136,7 +128,13 @@ export default {
 
     result: 'Result',
     copy: 'Copy',
-    resetConfig: 'Reset config'
+    resetConfig: 'Reset config',
+    
+    pop:"Chat Pop",
+    popUseDefault:"Default pop style",
+    popBorder:"Pop Border",
+    popBackgroundColor:"Pop Background color",
+    popBorderWidth:"Pop border width"
   },
   help: {
     help: 'Help',

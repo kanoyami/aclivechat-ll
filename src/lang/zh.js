@@ -99,14 +99,6 @@ export default {
     time: '时间',
     showTime: '显示时间',
 
-    backgrounds: '背景',
-    bgColor: '背景色',
-    useBarsInsteadOfBg: '用条代替背景',
-    messageBgColor: '消息背景色',
-    ownerMessageBgColor: '主播消息背景色',
-    moderatorMessageBgColor: '房管消息背景色',
-    memberMessageBgColor: '舰长消息背景色',
-
     scAndNewMember: '礼物',
     firstLineFont: '第一行字体',
     firstLineFontSize: '第一行字体尺寸',
@@ -137,7 +129,14 @@ export default {
 
     result: '结果',
     copy: '复制',
-    resetConfig: '恢复默认设置'
+    resetConfig: '恢复默认设置',
+        
+    pop:"聊天气泡",
+    popUseDefault:"默认气泡",
+    popBorder:"气泡描边",
+    popBorderWidth:"气泡描边宽度",
+    popBackgroundColor:"气泡背景颜色"
+
   },
   help: {
     help: '帮助',

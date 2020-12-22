@@ -91,7 +91,12 @@ export const DEFAULT_CONFIG = {
   animateOutWaitTime: 30, // s
   fadeOutTime: 200, // ms
   slide: false,
-  reverseSlide: false
+  reverseSlide: false,
+
+  popUseDefault: true,
+  popBorder: "#e5e5e5",
+  popBackgroundColor: "#e5e5e5",
+  popBorderWidth: 4
 }
 
 const FALLBACK_FONTS = ', "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\\5FAE\\8F6F\\96C5\\9ED1", SimHei, Arial, sans-serif'
@@ -390,6 +395,29 @@ yt-live-chat-text-message-renderer #message * {
   font-family: "${cssEscapeStr(config.messageFont)}"${FALLBACK_FONTS};
   font-size: ${config.messageFontSize}px !important;
   line-height: ${config.messageLineHeight || config.messageFontSize}px !important;
+}
+
+
+#message.yt-live-chat-text-message-renderer span{
+  background-color: ${config.popUseDefault ?
+      "#e5e5e5" : config.popBackgroundColor};
+  ${config.popUseDefault ?
+      `` : `border:${config.popBorderWidth}px ${config.popBorder} solid `};
+  padding: 5px 8px;
+  display: inline-block;
+  border-radius: 4px;
+  margin:10px 0 10px 10px;
+  position: relative;
+}
+
+#message.yt-live-chat-text-message-renderer span::after{
+  content: '';
+  display: ${config.popUseDefault ? `inline` : `none`};
+  border: 6px solid #ffffff00;
+  border-right: 6px solid  #E5E5E5;
+  position: absolute;
+  top: 4px;
+  left: -12px;
 }
 
 ${!config.messageOnNewLine ? '' : `yt-live-chat-text-message-renderer #message {
