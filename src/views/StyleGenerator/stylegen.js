@@ -410,6 +410,15 @@ yt-live-chat-text-message-renderer #message * {
   position: relative;
 }
 
+#message.yt-live-chat-text-message-renderer img {
+  height: 45%;
+  position: absolute;
+  bottom: 0;
+  right: -3px;
+  z-index: 0;
+  display: ${config.popUseDefault ? `none` : `inline`};
+}
+
 #message.yt-live-chat-text-message-renderer span::after{
   content: '';
   display: ${config.popUseDefault ? `inline` : `none`};
