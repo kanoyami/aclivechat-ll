@@ -121,7 +121,7 @@ export default {
       // 开发时使用localhost:12450
       const host =
         process.env.NODE_ENV === "development"
-          ? "localhost:12451"
+          ? "localhost:3378"
           : window.location.host;
       const url = `${protocol}://${host}/chat`;
       this.websocket = new WebSocket(url);

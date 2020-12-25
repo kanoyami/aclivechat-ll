@@ -10,6 +10,9 @@
       <el-menu-item index="/">
         <i class="el-icon-s-home"></i>{{$t('sidebar.home')}}
       </el-menu-item>
+      <el-menu-item :index="$router.resolve({name: 'lottoConfig'}).href">
+        <i class="el-icon-goods"></i>弹幕抽奖姬
+      </el-menu-item>
       <el-menu-item :index="$router.resolve({name: 'stylegen'}).href">
         <i class="el-icon-brush"></i>{{$t('sidebar.stylegen')}}
       </el-menu-item>

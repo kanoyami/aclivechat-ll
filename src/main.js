@@ -14,13 +14,15 @@ import StyleGenerator from './views/StyleGenerator'
 import Help from './views/Help'
 import Room from './views/Room.vue'
 import NotFound from './views/NotFound.vue'
+import Lotto from './views/Lotto.vue'
+import lottoConfig from './views/LottoConfig.vue'
 
 import zh from './lang/zh'
 import en from './lang/en'
 
 if (process.env.NODE_ENV === 'development') {
-  // 开发时使用localhost:12451
-  axios.defaults.baseURL = 'http://localhost:12451'
+  // 开发时使用localhost:3378
+  axios.defaults.baseURL = 'http://localhost:3378'
 }
 
 Vue.use(VueRouter)
@@ -64,10 +66,12 @@ const router = new VueRouter({
       children: [
         { path: '', component: Home },
         { path: 'stylegen', name: 'stylegen', component: StyleGenerator },
-        { path: 'help', name: 'help', component: Help }
+        { path: 'help', name: 'help', component: Help },
+        { path: 'lottoConfig', name: 'lottoConfig', component: lottoConfig }
       ]
     },
     { path: '/room/:roomId', name: 'room', component: Room },
+    { path: '/lotto/:roomId', name: 'lotto', component: Lotto },
     { path: '*', component: NotFound }
   ]
 })
