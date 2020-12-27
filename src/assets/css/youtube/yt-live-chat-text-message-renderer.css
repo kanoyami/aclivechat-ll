@@ -299,6 +299,7 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   position: absolute;
   top: 4px;
   left: -12px;
+  display: none;
 }
 
 #message.yt-live-chat-text-message-renderer

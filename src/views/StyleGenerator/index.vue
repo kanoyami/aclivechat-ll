@@ -14,9 +14,11 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="sendFontFile">提交</el-button>
+          <el-button type="primary" @click="sendFontFile">配置</el-button>
         </el-form-item>
-        <span>配置后在字体选择的地方，输入userdefine选择自己的字体。请注意字体的商业使用许可！</span>
+        <span
+          >配置后在字体选择的地方，输入userdefine选择自己的字体。请注意字体的商业使用许可！</span
+        >
         <h3>{{ $t("stylegen.outlines") }}</h3>
         <el-form-item :label="$t('stylegen.showOutlines')">
           <el-switch v-model="form.showOutlines"></el-switch>
@@ -48,11 +50,41 @@
         <el-form-item :label="$t('stylegen.popUseDefault')">
           <el-switch v-model="form.popUseDefault"></el-switch>
         </el-form-item>
+        <el-form-item :label="`预设模板`">
+          <el-select
+            :default-first-option="true"
+            :disabled="form.popUseDefault"
+            v-model="form.popTmpl"
+          >
+            <el-option :label="`模板1`" :value="`tmpl0`" />
+            <el-option :label="`南绾`" :value="`tmpl1`" />
+            <el-option :label="`自定义`" :value="`custom`" />
+          </el-select>
+        </el-form-item>
         <el-form-item :label="$t('stylegen.popBorder')">
           <el-color-picker
             show-alpha
             v-model="form.popBorder"
           ></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="`边框样式`">
+          <el-select
+            :default-first-option="true"
+            :disabled="form.popUseDefault"
+            v-model="form.popBorderType"
+          >
+            <el-option :label="`实线`" :value="`solid`" />
+            <el-option :label="`虚线`" :value="`dashed`" />
+            <el-option :label="`点状`" :value="`dotted`" />
+             <el-option :label="`双实线`" :value="`double`" />
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="`倒角尺寸`">
+          <el-input
+            v-model.number="form.popRadius"
+            type="number"
+            min="0"
+          ></el-input>
         </el-form-item>
         <el-form-item :label="$t('stylegen.popBorderWidth')">
           <el-input
@@ -625,13 +657,7 @@ const EXAMPLE_MESSAGES = [
     authorName: "腹肌",
     content: "加入了守护团",
   },
-  /*{
-    ...paidMessageTemplate,
-    id: (nextId++).toString(),
-    authorName: '大猫猫',
-    price: 1,
-    content: '快乐水 x 1'
-  },
+  /*
   {
     ...paidMessageTemplate,
     id: (nextId++).toString(),
@@ -699,7 +725,7 @@ export default {
   data() {
     let stylegenConfig = stylegen.getLocalConfig();
     const userFontsList = [];
-    let result = stylegen.getStyle(userFontsList,stylegenConfig);
+    let result = stylegen.getStyle(userFontsList, stylegenConfig);
     const host =
       process.env.NODE_ENV === "development"
         ? "localhost:3378"
@@ -718,7 +744,7 @@ export default {
 
   computed: {
     computedResult() {
-      return stylegen.getStyle(this.userFontsList,this.form);
+      return stylegen.getStyle(this.userFontsList, this.form);
     },
   },
   watch: {
@@ -756,8 +782,8 @@ export default {
       })
         .then((response) => response.json())
         .then(() => {
-          alert("配置成功")
-            window.location.reload()
+          alert("配置成功");
+          window.location.reload();
         });
     },
     getFontSuggestions(query, callback) {

@@ -57,7 +57,6 @@
       <div id="message" class="style-scope yt-live-chat-text-message-renderer">
         <span>
           {{ content }}
-          <img src="/static/img/nnk/nnk.png" />
         </span>
         <el-badge
           :value="repeated"

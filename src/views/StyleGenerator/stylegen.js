@@ -1,9 +1,9 @@
 import { mergeConfig } from '@/utils'
 import * as fonts from './fonts'
 const host =
-process.env.NODE_ENV === "development"
-  ? "localhost:3378"
-  : window.location.host;
+  process.env.NODE_ENV === "development"
+    ? "localhost:3378"
+    : window.location.host;
 export const DEFAULT_CONFIG = {
   showOutlines: true,
   outlineSize: 2,
@@ -99,7 +99,10 @@ export const DEFAULT_CONFIG = {
   popUseDefault: true,
   popBorder: "#e5e5e5",
   popBackgroundColor: "#e5e5e5",
-  popBorderWidth: 4
+  popBorderWidth: 4,
+  popTmpl:"tmpl0",
+  popRadius:8,
+  popBorderType:"solid"
 }
 
 const FALLBACK_FONTS = ', "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\\5FAE\\8F6F\\96C5\\9ED1", SimHei, Arial, sans-serif'
@@ -130,7 +133,6 @@ export function ejectFont(fonts, css) {
 }
 
 export function getStyle(userFonts, config) {
-  window.console.log(config.userNameFont)
   config = mergeConfig(config, DEFAULT_CONFIG)
   let text = ""
   userFonts.forEach(element => {
@@ -423,18 +425,6 @@ yt-live-chat-text-message-renderer #message * {
 }
 
 
-#message.yt-live-chat-text-message-renderer span{
-  background-color: ${config.popUseDefault ?
-      "#e5e5e5" : config.popBackgroundColor};
-  ${config.popUseDefault ?
-      `` : `border:${config.popBorderWidth}px ${config.popBorder} solid `};
-  padding: 5px 8px;
-  display: inline-block;
-  border-radius: 4px;
-  margin:10px 0 10px 10px;
-  position: relative;
-}
-
 #message.yt-live-chat-text-message-renderer img {
   height: 45%;
   position: absolute;
@@ -444,15 +434,7 @@ yt-live-chat-text-message-renderer #message * {
   display: ${config.popUseDefault ? `none` : `inline`};
 }
 
-#message.yt-live-chat-text-message-renderer span::after{
-  content: '';
-  display: ${config.popUseDefault ? `inline` : `none`};
-  border: 6px solid #ffffff00;
-  border-right: 6px solid  #E5E5E5;
-  position: absolute;
-  top: 4px;
-  left: -12px;
-}
+
 
 ${!config.messageOnNewLine ? '' : `yt-live-chat-text-message-renderer #message {
   display: block !important;
@@ -541,8 +523,11 @@ yt-live-chat-restricted-participation-renderer {
   display: none !important;
 }
 
+${genPopTpml(config.popUseDefault ? "default" : config.popTmpl, config)}
+
 ${getAnimationStyle(config)}
 `
+
 }
 
 function getImports(config) {
@@ -645,6 +630,110 @@ function getShowNewMemberBgStyle(config) {
   box-shadow: none !important;
   margin: 0 !important;`
   }
+}
+
+
+function genPopTpml(swither = "tmpl0", config) {
+  switch (swither) {
+    case "tmpl0":
+      return `
+      #message.yt-live-chat-text-message-renderer span{
+        background-color: white ;
+        border:2px black dotted;
+        padding: 5px 20px 5px 8px;
+        display: inline-block;
+        border-radius: 8px;
+        margin:10px 0 10px 10px;
+        position: relative;
+        background-size:auto 100%;
+        background-image:url("/static/img/stickers/t0.png");
+        background-repeat:no-repeat; 
+        background-position:right bottom
+        
+      }
+      
+    #message.yt-live-chat-text-message-renderer span::after{
+        content: '';
+        display: none;
+        border: 6px solid #ffffff00;
+        border-right: 6px solid  #E5E5E5;
+        position: absolute;
+        top: 4px;
+        left: -12px;
+      }`
+
+    case "tmpl1":
+      return `
+        #message.yt-live-chat-text-message-renderer span{
+          background-color: white ;
+          border:2px black dotted;
+          padding: 5px 20px 5px 8px;
+          display: inline-block;
+          border-radius: 8px;
+          margin:10px 0 10px 10px;
+          position: relative;
+          background-size:auto 100%;
+          background-image:url("/static/img/stickers/t1.gif");
+          background-repeat:no-repeat; 
+          background-position:right bottom
+          
+        }
+        
+      #message.yt-live-chat-text-message-renderer span::after{
+          content: '';
+          display: none;
+          border: 6px solid #ffffff00;
+          border-right: 6px solid  #E5E5E5;
+          position: absolute;
+          top: 4px;
+          left: -12px;
+        }`
+
+    case "custom":
+      return `
+      #message.yt-live-chat-text-message-renderer span{
+        background-color: ${config.popBackgroundColor};
+        border:${config.popBorderWidth}px ${config.popBorder} ${config.popBorderType};
+        padding: 5px 8px;
+        display: inline-block;
+        border-radius: ${config.popRadius}px;
+        margin:10px 0 10px 10px;
+        position: relative;
+      }
+      
+      #message.yt-live-chat-text-message-renderer span::after{
+        content: '';
+        display: none;
+        border: 6px solid #ffffff00;
+        border-right: 6px solid  #E5E5E5;
+        position: absolute;
+        top: 4px;
+        left: -12px;
+      }
+      `
+    case "default":
+      return `
+      #message.yt-live-chat-text-message-renderer span{
+        background-color: #e5e5e5 ;
+        padding: 5px 8px;
+        display: inline-block;
+        border-radius: 4px;
+        margin:10px 0 10px 10px;
+        position: relative;
+      }   
+      #message.yt-live-chat-text-message-renderer span::after{
+        content: '';
+        display: inline;
+        border: 6px solid #ffffff00;
+        border-right: 6px solid  #E5E5E5;
+        position: absolute;
+        top: 4px;
+        left: -12px;
+      }
+      `
+  }
+
+
 }
 
 function getAnimationStyle(config) {
