@@ -6,6 +6,7 @@ import {
   Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip
 } from 'element-ui'
 import axios from 'axios'
+import AsyncComputed from 'vue-async-computed'
 
 import App from './App.vue'
 import Layout from './layout'
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 
 Vue.use(VueRouter)
 Vue.use(VueI18n)
+Vue.use(AsyncComputed)
 // 初始化element
 Vue.use(Aside)
 Vue.use(Autocomplete)

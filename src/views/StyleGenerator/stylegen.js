@@ -1,6 +1,9 @@
 import { mergeConfig } from '@/utils'
 import * as fonts from './fonts'
-
+const host =
+process.env.NODE_ENV === "development"
+  ? "localhost:3378"
+  : window.location.host;
 export const DEFAULT_CONFIG = {
   showOutlines: true,
   outlineSize: 2,
@@ -113,9 +116,31 @@ export function getLocalConfig() {
   return mergeConfig(JSON.parse(window.localStorage.stylegenConfig), DEFAULT_CONFIG)
 }
 
-export function getStyle(config) {
+export function ejectFont(fonts, css) {
+  let text = ``
+  fonts.forEach(element => {
+    text +=
+      `\n@font-face{
+      font-family: ${element.name};
+      src: url("http://${host}${element.url}");
+    }
+    `
+  });
+  return text + css
+}
+
+export function getStyle(userFonts, config) {
+  window.console.log(config.userNameFont)
   config = mergeConfig(config, DEFAULT_CONFIG)
-  return `${getImports(config)}
+  let text = ""
+  userFonts.forEach(element => {
+    text +=
+      `\n@font-face{
+      font-family: ${element.name};
+      src: url("http://${host}${element.url}");
+    }
+    `})
+  return text + `${getImports(config)}
 
 /* Background colors */
 body {
