@@ -76,7 +76,7 @@
             <el-option :label="`实线`" :value="`solid`" />
             <el-option :label="`虚线`" :value="`dashed`" />
             <el-option :label="`点状`" :value="`dotted`" />
-             <el-option :label="`双实线`" :value="`double`" />
+            <el-option :label="`双实线`" :value="`double`" />
           </el-select>
         </el-form-item>
         <el-form-item :label="`倒角尺寸`">
@@ -98,6 +98,51 @@
             show-alpha
             v-model="form.popBackgroundColor"
           ></el-color-picker>
+        </el-form-item>
+
+        <h3>{{ $t("stylegen.messages") }}</h3>
+        <el-form-item :label="$t('stylegen.font')">
+          <el-autocomplete
+            v-model="form.messageFont"
+            :fetch-suggestions="getFontSuggestions"
+          ></el-autocomplete>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.fontSize')">
+          <el-input
+            v-model.number="form.messageFontSize"
+            type="number"
+            min="0"
+          ></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.lineHeight')">
+          <el-input
+            v-model.number="form.messageLineHeight"
+            type="number"
+            min="0"
+          ></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.color')">
+          <el-color-picker v-model="form.messageColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.joinColor')">
+          <el-color-picker v-model="form.messageJoinColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.quitColor')">
+          <el-color-picker v-model="form.messageQuitColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.followColor')">
+          <el-color-picker v-model="form.messageFollowColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.loveColor')">
+          <el-color-picker v-model="form.messageLoveColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.joinGroupColor')">
+          <el-color-picker
+            v-model="form.messageJoinGroupColor"
+          ></el-color-picker>
+        </el-form-item>
+        <el-form-item :label="$t('stylegen.onNewLine')">
+          <el-switch v-model="form.messageOnNewLine"></el-switch>
         </el-form-item>
 
         <h3>{{ $t("stylegen.userMark") }}</h3>
@@ -247,51 +292,6 @@
         </el-form-item>
         <el-form-item :label="$t('stylegen.showColon')">
           <el-switch v-model="form.showColon"></el-switch>
-        </el-form-item>
-
-        <h3>{{ $t("stylegen.messages") }}</h3>
-        <el-form-item :label="$t('stylegen.font')">
-          <el-autocomplete
-            v-model="form.messageFont"
-            :fetch-suggestions="getFontSuggestions"
-          ></el-autocomplete>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.fontSize')">
-          <el-input
-            v-model.number="form.messageFontSize"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.lineHeight')">
-          <el-input
-            v-model.number="form.messageLineHeight"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.color')">
-          <el-color-picker v-model="form.messageColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.joinColor')">
-          <el-color-picker v-model="form.messageJoinColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.quitColor')">
-          <el-color-picker v-model="form.messageQuitColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.followColor')">
-          <el-color-picker v-model="form.messageFollowColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.loveColor')">
-          <el-color-picker v-model="form.messageLoveColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.joinGroupColor')">
-          <el-color-picker
-            v-model="form.messageJoinGroupColor"
-          ></el-color-picker>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.onNewLine')">
-          <el-switch v-model="form.messageOnNewLine"></el-switch>
         </el-form-item>
 
         <h3>{{ $t("stylegen.time") }}</h3>
