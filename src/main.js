@@ -20,7 +20,7 @@ import lottoConfig from './views/LottoConfig.vue'
 
 import zh from './lang/zh'
 import en from './lang/en'
-
+import '../theme/index.css'
 if (process.env.NODE_ENV === 'development') {
   // 开发时使用localhost:3378
   axios.defaults.baseURL = 'http://localhost:3378'

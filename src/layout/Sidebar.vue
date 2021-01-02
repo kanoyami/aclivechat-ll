@@ -2,9 +2,6 @@
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu
       router
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="rgb(64, 158, 255)"
       :default-active="$route.path"
     >
       <el-menu-item index="/">
@@ -56,6 +53,7 @@ export default {
 }
 
 .scrollbar-wrapper {
+  background: white;
   overflow-x: hidden !important;
 }
 

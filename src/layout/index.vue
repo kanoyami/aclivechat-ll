@@ -1,20 +1,31 @@
 <template>
-  <el-container class="app-wrapper" :class="{mobile: isMobile}">
-    <div v-show="isMobile && !hideSidebar" class="drawer-bg" @click="hideSidebar = true"></div>
-    <el-aside width="230px" class="sidebar-container" :class="{'hide-sidebar': hideSidebar}">
+  <el-container class="app-wrapper" :class="{ mobile: isMobile }">
+    <div
+      v-show="isMobile && !hideSidebar"
+      class="drawer-bg"
+      @click="hideSidebar = true"
+    ></div>
+    <el-aside
+      width="230px"
+      class="sidebar-container"
+      :class="{ 'hide-sidebar': hideSidebar }"
+    >
       <div class="logo-container">
         <router-link to="/">
-          <!-- <img src="" class="sidebar-logo"> -->
-          <h1 class="sidebar-title">aclivechat-rev-ll</h1>
+          <img src="/static/img/logo.png" class="sidebar-logo" />
+          <p class="sidebar-title">ACFUN直播弹幕</p>
         </router-link>
       </div>
-      <div class="version">
-        {{VERSION}}
-      </div>
+      <div class="version">ll-version {{ VERSION }}</div>
       <sidebar></sidebar>
     </el-aside>
     <el-main>
-      <el-button v-show="isMobile" class="menu-button" icon="el-icon-s-unfold" @click="hideSidebar = false"></el-button>
+      <el-button
+        v-show="isMobile"
+        class="menu-button"
+        icon="el-icon-s-unfold"
+        @click="hideSidebar = false"
+      ></el-button>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -23,42 +34,54 @@
 </template>
 
 <script>
-import Sidebar from './Sidebar.vue'
-import * as chatConfig from '@/api/chatConfig'
+import Sidebar from "./Sidebar.vue";
+import * as chatConfig from "@/api/chatConfig";
 
 export default {
-  name: 'Layout',
+  name: "Layout",
   components: {
-    Sidebar
+    Sidebar,
   },
   data() {
     return {
       VERSION: chatConfig.VERSION,
       isMobile: false,
-      hideSidebar: true
-    }
+      hideSidebar: true,
+    };
   },
-  created() {
-    window.addEventListener('resize', this.onResize)
-    this.onResize()
+  async created() {
+    window.addEventListener("resize", this.onResize);
+    const host =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3378"
+        : window.location.host;
+    const str = await fetch(`${host}/version`);
+    const ver = await str.json();
+    this.VERSION = ver.version;
+    this.onResize();
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.onResize)
+    window.removeEventListener("resize", this.onResize);
   },
   methods: {
     onResize() {
-      this.isMobile = document.body.clientWidth <= 992
-    }
-  }
-}
+      this.isMobile = document.body.clientWidth <= 992;
+    },
+  },
+};
 </script>
 
 <style>
 html {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", "微软雅黑", Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", "微软雅黑", Arial, sans-serif;
 }
 
-html, body, #app, .app-wrapper, .sidebar-container {
+html,
+body,
+#app,
+.app-wrapper,
+.sidebar-container {
   height: 100%;
 }
 
@@ -66,7 +89,9 @@ body {
   margin: 0;
 }
 
-a, a:focus, a:hover {
+a,
+a:focus,
+a:hover {
   text-decoration: none;
 }
 
@@ -81,7 +106,6 @@ a, a:focus, a:hover {
 }
 
 .sidebar-container {
-  background-color: #304156;
   overflow: hidden;
 }
 
@@ -100,40 +124,33 @@ a, a:focus, a:hover {
 }
 
 .sidebar-container .logo-container {
+  padding-top:5px;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: #2b2f3a;
+  background: #fd4c5b;
   text-align: center;
 }
 
 .sidebar-container .logo-container .sidebar-logo {
-  width: 32px;
-  height: 32px;
-  vertical-align: middle;
-  margin-right: 12px;
+  height: 20px;
 }
 
 .sidebar-container .logo-container .sidebar-title {
-  display: inline-block;
+  display: block;
   margin: 0;
   color: #fff;
   font-weight: 600;
-  line-height: 50px;
   font-size: 14px;
   font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-  vertical-align: middle;
 }
 
 .sidebar-container .version {
   height: 30px;
-  background: #2b2f3a;
-  color: #aaa;
+  background: #fd4c5b;
+  color: #fff;
   font-weight: 600;
   line-height: 30px;
-  font-size: 14px;
-  vertical-align: middle;
-  text-align: center;
+  font-size: 12px;
+  text-align: right;
 }
 
 .sidebar-container .is-horizontal {

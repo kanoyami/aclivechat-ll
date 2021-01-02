@@ -642,8 +642,8 @@ function genPopTpml(swither = "tmpl0", config) {
         border:2px black dotted;
         padding: 5px 20px 5px 8px;
         display: inline-block;
+        margin:0;
         border-radius: 8px;
-        margin:10px 0 10px 10px;
         position: relative;
         background-size:auto 100%;
         background-image:url("/static/img/stickers/t0.png");
@@ -670,7 +670,7 @@ function genPopTpml(swither = "tmpl0", config) {
           padding: 5px 20px 5px 8px;
           display: inline-block;
           border-radius: 8px;
-          margin:10px 0 10px 10px;
+          margin:0;
           position: relative;
           background-size:auto 100%;
           background-image:url("/static/img/stickers/t1.gif");
@@ -695,9 +695,9 @@ function genPopTpml(swither = "tmpl0", config) {
         background-color: ${config.popBackgroundColor};
         border:${config.popBorderWidth}px ${config.popBorder} ${config.popBorderType};
         padding: 5px 8px;
+        margin:0;
         display: inline-block;
         border-radius: ${config.popRadius}px;
-        margin:10px 0 10px 10px;
         position: relative;
       }
       
