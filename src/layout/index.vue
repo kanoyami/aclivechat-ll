@@ -53,9 +53,9 @@ export default {
     window.addEventListener("resize", this.onResize);
     const host =
       process.env.NODE_ENV === "development"
-        ? "http://localhost:3378"
+        ? "localhost:3378"
         : window.location.host;
-    const str = await fetch(`${host}/version`);
+    const str = await fetch(`http://${host}/version`);
     const ver = await str.json();
     this.VERSION = ver.version;
     this.onResize();

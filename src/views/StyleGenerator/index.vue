@@ -50,6 +50,16 @@
         <el-form-item :label="$t('stylegen.popUseDefault')">
           <el-switch v-model="form.popUseDefault"></el-switch>
         </el-form-item>
+        <el-form-item :label="`上传贴纸`">
+          <el-input
+            :value="stickerFile"
+            v-model="stickerFile"
+            name="sticker"
+            type="file"
+            accept="image/*"
+          ></el-input>
+          <el-button type="primary" @click="sendStickerFile">上传</el-button>
+        </el-form-item>
         <el-form-item :label="`预设模板`">
           <el-select
             :default-first-option="true"
@@ -66,6 +76,26 @@
             show-alpha
             v-model="form.popBorder"
           ></el-color-picker>
+        </el-form-item>
+
+        <el-form-item :label="`选择贴纸`">
+          <el-radio-group v-model="form.stickerUrl">
+            <el-radio
+              border
+              v-for="(item, index) in stickers"
+              :key="index"
+              :label="item.url"
+              >{{ item.name }}</el-radio
+            >
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item :label="`贴纸右侧间距`">
+          <el-input
+            v-model.number="form.stickerPadding"
+            type="number"
+            min="0"
+          ></el-input>
         </el-form-item>
         <el-form-item :label="`边框样式`">
           <el-select
@@ -492,7 +522,7 @@ let textMessageTemplate = {
   authorType: constants.AUTHRO_TYPE_NORMAL,
   content: "",
   userMark: "",
-  medal: { UperID: "35119946", ClubName: "炖猫人", Level: "1" },
+  medal: { UperID: "3375458", ClubName: "无情铁手", Level: "1" },
   privilegeType: 0,
   repeated: 1,
   translation: "",
@@ -733,11 +763,13 @@ export default {
     return {
       FONTS: [...fonts.LOCAL_FONTS, ...fonts.NETWORK_FONTS],
       fontFile: null,
+      stickerFile: null,
       form: { ...stylegenConfig },
       result,
       host,
       exampleCss: result.replace(/^body\b/gm, "#fakebody"),
       userFontsList,
+      stickers: [],
     };
   },
   props: {},
@@ -760,6 +792,12 @@ export default {
     this.$refs.renderer.addMessages(EXAMPLE_MESSAGES);
     const fontsRet = await fetch(`http://${this.host}/fonts_list`);
     const fonts = await fontsRet.json();
+
+    const stickersRet = await fetch(`http://${this.host}/stickers_list`);
+    const stickers = await stickersRet.json();
+
+    this.stickers = stickers;
+    window.console.log(stickers);
     fonts.forEach((element) => {
       this.FONTS.push(element.name);
     });
@@ -771,6 +809,20 @@ export default {
     observer.observe(this.$refs.exampleContainer, { attributes: true });
   },
   methods: {
+    sendStickerFile() {
+      let fontFileObj = document.getElementsByName("sticker")[0].files[0];
+      let formData = new FormData();
+      formData.append("file", fontFileObj);
+      fetch(`http://${this.host}/sticker_upload`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then(() => {
+          alert("上传成功");
+          window.location.reload();
+        });
+    },
     sendFontFile() {
       let fontFileObj = document.getElementsByName("font")[0].files[0];
       let formData = new FormData();

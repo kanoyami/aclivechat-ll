@@ -100,9 +100,11 @@ export const DEFAULT_CONFIG = {
   popBorder: "#e5e5e5",
   popBackgroundColor: "#e5e5e5",
   popBorderWidth: 4,
-  popTmpl:"tmpl0",
-  popRadius:8,
-  popBorderType:"solid"
+  popTmpl: "tmpl0",
+  popRadius: 8,
+  popBorderType: "solid",
+  stickerUrl: "",
+  stickerPadding:20
 }
 
 const FALLBACK_FONTS = ', "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\\5FAE\\8F6F\\96C5\\9ED1", SimHei, Arial, sans-serif'
@@ -694,43 +696,50 @@ function genPopTpml(swither = "tmpl0", config) {
       #message.yt-live-chat-text-message-renderer span{
         background-color: ${config.popBackgroundColor};
         border:${config.popBorderWidth}px ${config.popBorder} ${config.popBorderType};
-        padding: 5px 8px;
+        padding: 5px ${config.stickerPadding}px 5px 8px;
         margin:0;
         display: inline-block;
         border-radius: ${config.popRadius}px;
         position: relative;
-      }
+        background-size:auto 100%;
+        background-image:url("http://${process.env.NODE_ENV === "development"
+          ? "localhost:3378"
+          : window.location.host
+  }${ config.stickerUrl } ");
+  background - repeat: no - repeat;
+  background - position: right bottom
+}
       
-      #message.yt-live-chat-text-message-renderer span::after{
-        content: '';
-        display: none;
-        border: 6px solid #ffffff00;
-        border-right: 6px solid  #E5E5E5;
-        position: absolute;
-        top: 4px;
-        left: -12px;
-      }
-      `
+      #message.yt - live - chat - text - message - renderer span:: after{
+  content: '';
+  display: none;
+  border: 6px solid #ffffff00;
+  border - right: 6px solid  #E5E5E5;
+  position: absolute;
+  top: 4px;
+  left: -12px;
+}
+`
     case "default":
       return `
-      #message.yt-live-chat-text-message-renderer span{
-        background-color: #e5e5e5 ;
-        padding: 5px 8px;
-        display: inline-block;
-        border-radius: 4px;
-        margin:10px 0 10px 10px;
-        position: relative;
-      }   
-      #message.yt-live-chat-text-message-renderer span::after{
-        content: '';
-        display: inline;
-        border: 6px solid #ffffff00;
-        border-right: 6px solid  #E5E5E5;
-        position: absolute;
-        top: 4px;
-        left: -12px;
-      }
-      `
+      #message.yt - live - chat - text - message - renderer span{
+  background - color: #e5e5e5;
+  padding: 5px 8px;
+  display: inline - block;
+  border - radius: 4px;
+  margin: 10px 0 10px 10px;
+  position: relative;
+}   
+      #message.yt - live - chat - text - message - renderer span:: after{
+  content: '';
+  display: inline;
+  border: 6px solid #ffffff00;
+  border - right: 6px solid  #E5E5E5;
+  position: absolute;
+  top: 4px;
+  left: -12px;
+}
+`
   }
 
 
@@ -751,27 +760,29 @@ function getAnimationStyle(config) {
   let keyframes = []
   let curTime = 0
   if (config.animateIn) {
-    keyframes.push(`  0% { opacity: 0;${!config.slide ? ''
-      : ` transform: translateX(${config.reverseSlide ? 16 : -16}px);`
-      } }`)
+    keyframes.push(`  0 % { opacity: 0; ${
+  !config.slide ? ''
+  : ` transform: translateX(${config.reverseSlide ? 16 : -16}px);`
+} }`)
     curTime += config.fadeInTime
-    keyframes.push(`  ${(curTime / totalTime) * 100}% { opacity: 1; transform: none; }`)
+    keyframes.push(`  ${ (curTime / totalTime) * 100 }% { opacity: 1; transform: none; }`)
   }
   if (config.animateOut) {
     curTime += config.animateOutWaitTime * 1000
-    keyframes.push(`  ${(curTime / totalTime) * 100}% { opacity: 1; transform: none; }`)
+    keyframes.push(`  ${ (curTime / totalTime) * 100 }% { opacity: 1; transform: none; }`)
     curTime += config.fadeOutTime
-    keyframes.push(`  ${(curTime / totalTime) * 100}% { opacity: 0;${!config.slide ? ''
-      : ` transform: translateX(${config.reverseSlide ? -16 : 16}px);`
-      } }`)
+    keyframes.push(`  ${ (curTime / totalTime) * 100 }% { opacity: 0; ${
+  !config.slide ? ''
+  : ` transform: translateX(${config.reverseSlide ? -16 : 16}px);`
+} }`)
   }
   return `@keyframes anim {
-${keyframes.join('\n')}
+  ${ keyframes.join('\n') }
 }
 
-yt-live-chat-text-message-renderer,
-yt-live-chat-legacy-paid-message-renderer {
-  animation: anim ${totalTime}ms;
-  animation-fill-mode: both;
-}`
+yt - live - chat - text - message - renderer,
+  yt - live - chat - legacy - paid - message - renderer {
+  animation: anim ${ totalTime } ms;
+  animation - fill - mode: both;
+} `
 }

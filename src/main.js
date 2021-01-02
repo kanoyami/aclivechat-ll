@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import {
   Aside, Autocomplete, Badge, Button, Col, ColorPicker, Container, Divider, Form, FormItem, Image,
-  Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip,Select,Option
+  Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip,Select,Option,RadioGroup,Radio
 } from 'element-ui'
 import axios from 'axios'
 import AsyncComputed from 'vue-async-computed'
@@ -54,7 +54,9 @@ Vue.use(TabPane)
 Vue.use(Tabs)
 Vue.use(Tooltip)
 Vue.use(Select)
+Vue.use(RadioGroup)
 Vue.use(Option)
+Vue.use(Radio)
 Vue.prototype.$message = Message
 
 Vue.config.ignoredElements = [
