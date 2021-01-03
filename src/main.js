@@ -12,7 +12,6 @@ import App from './App.vue'
 import Layout from './layout'
 import Home from './views/Home.vue'
 import StyleGenerator from './views/StyleGenerator'
-import Help from './views/Help'
 import Room from './views/Room.vue'
 import NotFound from './views/NotFound.vue'
 import Lotto from './views/Lotto.vue'
@@ -72,7 +71,6 @@ const router = new VueRouter({
       children: [
         { path: '', component: Home },
         { path: 'stylegen', name: 'stylegen', component: StyleGenerator },
-        { path: 'help', name: 'help', component: Help },
         { path: 'lottoConfig', name: 'lottoConfig', component: lottoConfig }
       ]
     },
