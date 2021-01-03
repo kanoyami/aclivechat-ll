@@ -10,6 +10,17 @@
           style="width: calc(100% - 8em); margin-right: 1em;"
         ></el-input>
       </el-form-item>
+
+      <el-form-item :label="`抽奖数量`" prop="dd_nums">
+        <el-input
+          ref="keywordsInput"
+          type="number"
+          v-model="dd_nums"
+          style="width: calc(100% - 8em); margin-right: 1em;"
+          min="1"
+        ></el-input>
+      </el-form-item>
+
       <el-button type="primary" :disabled="start" @click="handleStart"
         >开始</el-button
       >
@@ -17,7 +28,9 @@
         >结束</el-button
       >
       <h3>结果</h3>
-      <p>恭喜：{{ winner.nickname }} id:{{ winner.userId }}</p>
+      <p v-for="item in winners" :key="item.userId">
+        恭喜：{{ item.nickname }} id:{{ item.userId }}
+      </p>
     </el-form>
 
     <div>
@@ -70,16 +83,17 @@ export default {
       serverHeartbeatTime: 0, //服务器返回心跳的时间
       clientHeartbeatTime: 0, //客户端发送心跳的时间
       noHeartbeatCount: 0, //丢失心跳次数
-      winner: { nickname: "", userId: "" },
+      winners: [],
       isDestroying: false,
       isfirstLoad: true,
       heartbeatTimerId: null,
       uid: "",
       content: "",
       start: false,
-      interval: 0,
+      // interval: 0,
       danmukuArr: [],
       lottoArr: [],
+      dd_nums: 1,
     };
   },
   computed: {},
@@ -98,17 +112,22 @@ export default {
   methods: {
     handleStart() {
       this.start = true;
-      this.winner = { nickname: "", userId: "" };
+      this.winners = [];
+      this.danmukuArr = []
     },
     handleLottery() {
       this.start = false;
       const lotteries = arrCompose(this.lottoArr);
-      window.console.log(lotteries);
-      const n = Math.floor((Math.random() * 10000000000) % lotteries.length);
-      clearInterval(this.interval);
-      this.lottoArr = [];
-      this.winner = lotteries[n];
-      window.console.log(this.winner);
+      for (let index = 0; index < this.dd_nums; ) {
+        const n = Math.floor((Math.random() * 10000000000) % lotteries.length);
+        const winner = lotteries[n];
+        if (winner === undefined) continue;
+        delete lotteries[n]
+        this.winners.push(winner);
+        index++;
+      }
+
+      window.console.log(this.winners);
     },
     wsConnect() {
       const protocol = window.location.protocol === "https:" ? "wss" : "ws";
@@ -182,7 +201,6 @@ export default {
           break;
         case COMMAND_ADD_TEXT:
           if (this.start) {
-            window.console.log(data);
             if (this.danmukuArr.length > 12) this.danmukuArr = [];
             if (data.content.indexOf(this.keywords) === -1) return;
             this.danmukuArr.push(data);

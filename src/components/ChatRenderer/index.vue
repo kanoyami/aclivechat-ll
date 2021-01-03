@@ -100,7 +100,7 @@ export default {
     },
     showGiftName: {
       type: Boolean,
-      default: chatConfig.DEFAULT_CONFIG.showGiftName
+      default: true
     },
     showEqualMedal: {
       type: Boolean,

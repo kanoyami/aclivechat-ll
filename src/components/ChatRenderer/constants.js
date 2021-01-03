@@ -134,7 +134,7 @@ export function getShowContent(message) {
   return message.content
 }
 
-export function getGiftShowContent(message, showGiftName) {
+export function getGiftShowContent(message, showGiftName = true) {
   if (!showGiftName) {
     return ''
   }

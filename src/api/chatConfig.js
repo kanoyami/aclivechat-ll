@@ -19,7 +19,7 @@ export const DEFAULT_CONFIG = {
   showGiftPrice: true,
   showACCoinInstead: false,
   showGiftPngInstead: false,
-  showGiftName: false,
+  showGiftName: true,
   mergeSimilarDanmaku: true,
   mergeSimilarOther: true,
   mergeGift: true,
@@ -33,7 +33,7 @@ export const DEFAULT_CONFIG = {
   autoTranslate: false
 }
 
-export const VERSION = "0.3.12";
+export const VERSION = "0.4.1";
 
 export function setLocalConfig(config) {
   config = mergeConfig(config, DEFAULT_CONFIG)
