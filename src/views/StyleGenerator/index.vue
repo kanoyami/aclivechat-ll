@@ -10,7 +10,7 @@
             v-model="fontFile"
             name="font"
             type="file"
-            accept=".ttf,"
+            accept=".ttf,.otf,.ttc"
           ></el-input>
         </el-form-item>
         <el-form-item>

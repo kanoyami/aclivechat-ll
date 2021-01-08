@@ -17,7 +17,12 @@
         </router-link>
       </div>
       <div class="version">ll-version {{ VERSION }}</div>
-      <sidebar></sidebar>
+      <div v-show="hasNewVersion" class="version-new">
+        <a href="http://livesongs.sdrsks.com.cn/ll-aclivechat-latest.zip">
+          新版本{{ REMOTE_VERSION }}发布啦，点击下载</a
+        >
+      </div>
+      <sidebar />
     </el-aside>
     <el-main>
       <el-button
@@ -45,8 +50,10 @@ export default {
   data() {
     return {
       VERSION: chatConfig.VERSION,
+      REMOTE_VERSION: "",
       isMobile: false,
       hideSidebar: true,
+      hasNewVersion: false,
     };
   },
   async created() {
@@ -57,7 +64,13 @@ export default {
         : window.location.host;
     const str = await fetch(`http://${host}/version`);
     const ver = await str.json();
+    const remoteVersion = await fetch(
+      `http://livesongs.sdrsks.com.cn:5818/version`
+    );
+    const remoteVer = await remoteVersion.json();
     this.VERSION = ver.version;
+    this.REMOTE_VERSION = remoteVer.version;
+    this.hasNewVersion = this.compareVersion(remoteVer.version, ver.version);
     this.onResize();
   },
   beforeDestroy() {
@@ -66,6 +79,21 @@ export default {
   methods: {
     onResize() {
       this.isMobile = document.body.clientWidth <= 992;
+    },
+    compareVersion(version1, version2) {
+      var arr1 = version1.split(".");
+      var arr2 = version2.split(".");
+      var maxLen = arr1.length > arr2.length ? arr1.length : arr2.length;
+      for (let i = 0; i < maxLen; i++) {
+        var p1 = arr1[i] >> 0 || 0;
+        var p2 = arr2[i] >> 0 || 0;
+        if (p1 > p2) {
+          return true;
+        } else if (p1 < p2) {
+          return false;
+        }
+      }
+      return 0;
     },
   },
 };
@@ -124,7 +152,7 @@ a:hover {
 }
 
 .sidebar-container .logo-container {
-  padding-top:5px;
+  padding-top: 5px;
   width: 100%;
   background: #fd4c5b;
   text-align: center;
@@ -151,6 +179,20 @@ a:hover {
   line-height: 30px;
   font-size: 12px;
   text-align: right;
+}
+
+.sidebar-container .version-new {
+  height: 30px;
+  background: #000;
+  color: #fff;
+  font-weight: 600;
+  line-height: 30px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.sidebar-container .version-new a:link {
+  color: #fff;
 }
 
 .sidebar-container .is-horizontal {
