@@ -250,7 +250,6 @@
 
 <script>
 import _ from "lodash";
-import axios from "axios";
 import download from "downloadjs";
 
 import { mergeConfig } from "@/utils";
@@ -312,6 +311,7 @@ export default {
   },
   methods: {
     submitAccount() {
+      if(this.loginInfo.length===0) return alert("至少需要一个账号")
       let reqBody = "";
       if (this.login && this.loginInfo != []) {
         reqBody = JSON.stringify({ accounts: this.loginInfo });
@@ -345,11 +345,22 @@ export default {
       this.loginInfo.pop();
     },
     async updateServerConfig() {
-      try {
-        this.serverConfig = (await axios.get(`/server_info`)).data.config;
-      } catch (e) {
-        this.$message.error("Failed to fetch server information: " + e);
-      }
+      const host =
+        process.env.NODE_ENV === "development"
+          ? "localhost:3378"
+          : window.location.host;
+
+      fetch(`http://${host}/logininfo`)
+        .then(function(data) {
+          // return data.text();
+          return data.json();
+        })
+        .then((data) => {
+          if (data.length > 0) {
+            this.loginInfo = data;
+            this.login = true;
+          }
+        });
     },
     enterRoom() {
       window.open(

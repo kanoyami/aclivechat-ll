@@ -10,7 +10,6 @@
 
 <script>
 import _ from "lodash";
-import axios from "axios";
 
 import * as chatConfig from "@/api/chatConfig";
 
@@ -46,13 +45,6 @@ export default {
     }, 500),
   },
   methods: {
-    async updateServerConfig() {
-      try {
-        this.serverConfig = (await axios.get(`/server_info`)).data.config;
-      } catch (e) {
-        this.$message.error("Failed to fetch server information: " + e);
-      }
-    },
     enterRoom() {
       window.open(
         this.roomUrl,
