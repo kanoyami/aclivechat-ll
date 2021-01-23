@@ -722,22 +722,22 @@ function genPopTpml(swither = "tmpl0", config) {
 `
     case "default":
       return `
-      #message.yt - live - chat - text - message - renderer span{
-  background - color: #e5e5e5;
-  padding: 5px 8px;
-  display: inline - block;
-  border - radius: 4px;
-  margin: 10px 0 10px 10px;
-  position: relative;
+  #message.yt-live-chat-text-message-renderer span{
+background - color: #e5e5e5;
+padding: 5px 8px;
+display: inline - block;
+border - radius: 4px;
+margin: 10px 0 10px 10px;
+position: relative;
 }   
-      #message.yt - live - chat - text - message - renderer span:: after{
-  content: '';
-  display: inline;
-  border: 6px solid #ffffff00;
-  border - right: 6px solid  #E5E5E5;
-  position: absolute;
-  top: 4px;
-  left: -12px;
+  #message.yt-live-chat-text-message-renderer span:: after{
+content: '';
+display: inline;
+border: 6px solid #ffffff00;
+border - right: 6px solid  #E5E5E5;
+position: absolute;
+top: 4px;
+left: -12px;
 }
 `
   }
