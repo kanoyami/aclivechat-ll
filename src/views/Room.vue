@@ -41,9 +41,9 @@ export default {
       config: { ...chatConfig.DEFAULT_CONFIG },
       VERSION: chatConfig.VERSION,
 
-      websocket: null,
+      websockets: [],
       retryCount: 0,
-
+      url: "",
       serverHeartbeatTime: 0, //服务器返回心跳的时间
       clientHeartbeatTime: 0, //客户端发送心跳的时间
       noHeartbeatCount: 0, //丢失心跳次数
@@ -62,6 +62,13 @@ export default {
     },
   },
   created() {
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    // 开发时使用localhost:12450
+    const host =
+      process.env.NODE_ENV === "development"
+        ? "localhost:3378"
+        : window.location.host;
+    this.url = `${protocol}://${host}/chat`;
     this.updateConfig();
     this.wsConnect();
     // 提示用户已加载
@@ -72,7 +79,9 @@ export default {
   },
   beforeDestroy() {
     this.isDestroying = true;
-    this.websocket.close();
+    this.websockets.forEach((ws) => {
+      ws.close();
+    });
   },
   methods: {
     updateConfig() {
@@ -117,21 +126,25 @@ export default {
       this.config = cfg;
     },
     wsConnect() {
-      const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-      // 开发时使用localhost:12450
-      const host =
-        process.env.NODE_ENV === "development"
-          ? "localhost:3378"
-          : window.location.host;
-      const url = `${protocol}://${host}/chat`;
-      this.websocket = new WebSocket(url);
-      this.websocket.onopen = this.onWsOpen;
-      this.websocket.onclose = this.onWsClose;
-      this.websocket.onmessage = this.onWsMessage;
+      this.websockets = this.$route.params.roomId.split(":").map(this.genWs);
     },
-    sendHeartbeat() {
-      if (this.websocket.readyState === 1) {
-        this.websocket.send(
+    genWs(roomId) {
+      const ws = new WebSocket(this.url);
+      ws.roomId = parseInt(roomId);
+      ws.onopen = () => {
+        this.onWsOpen(roomId, ws);
+      };
+      ws.onclose = () => {
+        this.onWsClose(parseInt(roomId));
+      };
+      ws.onmessage = (event) => {
+        this.onWsMessage(event, ws);
+      };
+      return ws;
+    },
+    sendHeartbeat(ws) {
+      if (ws.readyState === 1) {
+        ws.send(
           JSON.stringify({
             cmd: COMMAND_HEARTBEAT,
           })
@@ -145,19 +158,21 @@ export default {
       }
       if (this.noHeartbeatCount > 2) {
         window.console.log(`无心跳重连`);
-        this.websocket.close();
+        ws.close();
       }
     },
-    onWsOpen() {
+    onWsOpen(roomId, ws) {
       this.retryCount = 0;
       this.noHeartbeatCount = 0;
       this.serverHeartbeatTime = Date.now();
-      this.heartbeatTimerId = window.setInterval(this.sendHeartbeat, 5 * 1000);
-      this.websocket.send(
+      this.heartbeatTimerId = window.setInterval(() => {
+        this.sendHeartbeat(ws);
+      }, 5 * 1000);
+      ws.send(
         JSON.stringify({
           cmd: COMMAND_JOIN_ROOM,
           data: {
-            roomId: parseInt(this.$route.params.roomId),
+            roomId: parseInt(roomId),
             isfirstLoad: this.isfirstLoad,
             version: this.VERSION,
             config: {
@@ -167,7 +182,7 @@ export default {
         })
       );
     },
-    onWsClose() {
+    onWsClose(roomId) {
       if (this.heartbeatTimerId) {
         window.clearInterval(this.heartbeatTimerId);
         this.heartbeatTimerId = null;
@@ -179,7 +194,10 @@ export default {
       if (this.retryCount > 1) {
         this.isfirstLoad = false;
       }
-      this.wsConnect();
+      for (let index = 0; index < this.websockets.length; index++) {
+        if (this.websockets[index].roomId === roomId)
+          this.websockets[index] = this.genWs(roomId);
+      }
     },
     onWsMessage(event) {
       let { cmd, data } = JSON.parse(event.data);

@@ -1,7 +1,5 @@
 <template>
   <yt-live-chat-text-message-renderer :author-type="authorTypeText">
-    <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
-      :imgUrl="avatarUrl"></img-shadow>
     <div id="content" class="style-scope yt-live-chat-text-message-renderer">
       <span id="timestamp" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
       <span v-if="userMark !== ''" id="usermark"
@@ -10,7 +8,6 @@
         <span id="author-name" dir="auto" class="style-scope yt-live-chat-author-chip" :type="authorTypeText">{{
           authorName
           }}
-          <!-- 这里是已验证勋章 -->
           <span id="chip-badges" class="style-scope yt-live-chat-author-chip"></span>
         </span>
         <span id="chat-badges" class="style-scope yt-live-chat-author-chip">
@@ -29,7 +26,6 @@
 </template>
 
 <script>
-import ImgShadow from './ImgShadow.vue'
 import AuthorBadge from './AuthorBadge.vue'
 import * as constants from './constants'
 import * as utils from '@/utils'
@@ -41,7 +37,6 @@ const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 export default {
   name: 'JoinGroupMessage',
   components: {
-    ImgShadow,
     AuthorBadge
   },
   props: {

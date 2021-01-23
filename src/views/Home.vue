@@ -45,12 +45,26 @@
   >
     <el-tabs>
       <el-tab-pane :label="$t('home.general')">
-        <el-form-item :label="$t('home.roomId')" required prop="roomId">
-          <el-input
-            v-model.number="form.roomId"
-            type="number"
-            min="1"
-          ></el-input>
+        <el-form-item :label="`联动模式`">
+          <el-switch v-model="muti_room"></el-switch>
+        </el-form-item>
+
+        <div v-for="(item, i) in roomIDs" v-bind:key="i">
+          <el-form-item :label="$t('home.roomId')" required prop="roomId">
+            <el-input
+              v-model.number="roomIDs[i]"
+              type="number"
+              min="1"
+            ></el-input>
+          </el-form-item>
+        </div>
+        <el-form-item>
+          <el-button :disabled="!muti_room" type="secondary" @click="addRoom"
+            >增加房间</el-button
+          >
+          <el-button :disabled="!muti_room" type="danger" @click="rmRoom"
+            >删除房间</el-button
+          >
         </el-form-item>
         <el-form-item :label="$t('home.showDanmaku')">
           <el-switch v-model="form.showDanmaku"></el-switch>
@@ -266,8 +280,10 @@ export default {
         roomId: parseInt(window.localStorage.roomId || "1"),
         ...chatConfig.getLocalConfig(),
       },
+      roomIDs: [parseInt(window.localStorage.roomId || "1")],
       login: false,
       loginInfo: [],
+      muti_room: false,
     };
   },
   computed: {
@@ -294,7 +310,7 @@ export default {
       }
       let resolved = this.$router.resolve({
         name: "room",
-        params: { roomId: this.form.roomId },
+        params: { roomId: this.roomIDs.join(":") },
         query,
       });
       return `${window.location.protocol}//${window.location.host}${resolved.href}`;
@@ -302,7 +318,7 @@ export default {
   },
   watch: {
     roomUrl: _.debounce(function() {
-      window.localStorage.roomId = this.form.roomId;
+      window.localStorage.roomId = this.roomIDs[0];
       chatConfig.setLocalConfig(this.form);
     }, 500),
   },
@@ -310,8 +326,14 @@ export default {
     this.updateServerConfig();
   },
   methods: {
+    addRoom() {
+      this.roomIDs.push(0);
+    },
+    rmRoom() {
+      this.roomIDs.pop();
+    },
     submitAccount() {
-      if(this.loginInfo.length===0) return alert("至少需要一个账号")
+      if (this.loginInfo.length === 0) return alert("至少需要一个账号");
       let reqBody = "";
       if (this.login && this.loginInfo != []) {
         reqBody = JSON.stringify({ accounts: this.loginInfo });
