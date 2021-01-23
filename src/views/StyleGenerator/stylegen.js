@@ -710,7 +710,7 @@ function genPopTpml(swither = "tmpl0", config) {
         background-position: right bottom
 }
       
-      #message.yt - live - chat - text - message - renderer span:: after{
+      #message.yt-live-chat-text-message-renderer span:: after{
   content: '';
   display: none;
   border: 6px solid #ffffff00;
@@ -722,7 +722,7 @@ function genPopTpml(swither = "tmpl0", config) {
 `
     case "default":
       return `
-      #message.yt - live - chat - text - message - renderer span{
+      #message.yt-live-chat-text-message-renderer span{
   background - color: #e5e5e5;
   padding: 5px 8px;
   display: inline - block;
@@ -730,7 +730,7 @@ function genPopTpml(swither = "tmpl0", config) {
   margin: 10px 0 10px 10px;
   position: relative;
 }   
-      #message.yt - live - chat - text - message - renderer span:: after{
+      #message.yt-live-chat-text-message-renderer span:: after{
   content: '';
   display: inline;
   border: 6px solid #ffffff00;

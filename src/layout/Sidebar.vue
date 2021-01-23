@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2021-01-23 23:16:18
+ * @LastEditors: kanoyami
+ * @LastEditTime: 2021-01-23 23:21:50
+-->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu router :default-active="$route.path">
@@ -44,7 +49,7 @@ export default {
   methods: {
     onSelectLanguage(locale) {
       window.localStorage.lang = this.$i18n.locale = locale;
-    },
+    }
   },
 };
 </script>

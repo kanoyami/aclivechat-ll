@@ -385,11 +385,7 @@ export default {
         });
     },
     enterRoom() {
-      window.open(
-        this.roomUrl,
-        `room ${this.form.roomId}`,
-        "menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600"
-      );
+      window.ipcRenderer.send("openView", this.roomUrl)
     },
     copyUrl() {
       this.$refs.roomUrlInput.select();
