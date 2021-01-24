@@ -8,7 +8,7 @@ export const DEFAULT_CONFIG = {
   showOutlines: true,
   outlineSize: 2,
   outlineColor: '#000000',
-  backgroundColorInLiveChat:"rgba(0,255,0,0.1)",
+  backgroundColorInLiveChat: "rgba(0,255,0,0.1)",
   showMedalName: false,
   showMedalLevel: false,
   medalNameFont: 'Changa One',
@@ -64,7 +64,7 @@ export const DEFAULT_CONFIG = {
   timeLineHeight: 0,
   timeColor: '#999999',
 
-  bgColor: 'rgb(0, 0, 0)',
+  bgColor: 'rgba(0, 0, 0, 0)',
   useBarsInsteadOfBg: false,
   messageBgColor: 'rgba(204, 204, 204, 0)',
   ownerMessageBgColor: 'rgba(255, 214, 0, 0)',
@@ -149,12 +149,12 @@ export function getStyle(userFonts, config) {
 /* Background colors */
 body {
   overflow: hidden;
-  ${config.bgColor ? `background-color: ${config.bgColor};` : ''}
+  background: ${config.backgroundColorInLiveChat} !important;
+ }
 }
 
 /* Transparent background. */
 yt-live-chat-renderer {
-  background: ${config.backgroundColorInLiveChat} !important;
 }
 
 ${getMessageColorStyle('', config.messageBgColor, config.useBarsInsteadOfBg)}

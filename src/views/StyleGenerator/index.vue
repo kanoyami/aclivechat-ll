@@ -175,34 +175,6 @@
           <el-switch v-model="form.messageOnNewLine"></el-switch>
         </el-form-item>
 
-        <h3>{{ $t("stylegen.userMark") }}</h3>
-        <el-form-item :label="$t('stylegen.showUserMark')">
-          <el-switch v-model="form.showUserMark"></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.font')">
-          <el-autocomplete
-            v-model="form.userMarkFont"
-            :fetch-suggestions="getFontSuggestions"
-          ></el-autocomplete>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.fontSize')">
-          <el-input
-            v-model.number="form.userMarkFontSize"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.lineHeight')">
-          <el-input
-            v-model.number="form.userMarkLineHeight"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.normalColor')">
-          <el-color-picker v-model="form.userMarkColor"></el-color-picker>
-        </el-form-item>
-
         <h3>{{ $t("stylegen.medal") }}</h3>
         <el-form-item :label="$t('stylegen.showMedalName')">
           <el-switch v-model="form.showMedalName"></el-switch>
@@ -317,39 +289,8 @@
         <el-form-item :label="$t('stylegen.memberColor')">
           <el-color-picker v-model="form.memberUserNameColor"></el-color-picker>
         </el-form-item>
-        <el-form-item :label="$t('stylegen.showBadges')">
-          <el-switch v-model="form.showBadges"></el-switch>
-        </el-form-item>
         <el-form-item :label="$t('stylegen.showColon')">
           <el-switch v-model="form.showColon"></el-switch>
-        </el-form-item>
-
-        <h3>{{ $t("stylegen.time") }}</h3>
-        <el-form-item :label="$t('stylegen.showTime')">
-          <el-switch v-model="form.showTime"></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.font')">
-          <el-autocomplete
-            v-model="form.timeFont"
-            :fetch-suggestions="getFontSuggestions"
-          ></el-autocomplete>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.fontSize')">
-          <el-input
-            v-model.number="form.timeFontSize"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.lineHeight')">
-          <el-input
-            v-model.number="form.timeLineHeight"
-            type="number"
-            min="0"
-          ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('stylegen.color')">
-          <el-color-picker v-model="form.timeColor"></el-color-picker>
         </el-form-item>
 
         <h3>{{ $t("stylegen.scAndNewMember") }}</h3>
@@ -881,8 +822,9 @@ export default {
         .then((response) => response.json())
         .then((r) => {
           if (r.iRet === 0) {
-            alert("应用成功");
-            window.ipcRenderer.send("applyCss");
+            window.ipcRenderer.send("applyCss",{
+              type:"livechat"
+            });
           } else {
             alert("应用失败");
           }

@@ -362,3 +362,7 @@ html:not(.style-scope) {
   --layout-fixed-left_-_left: 0;
   ;
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-23 23:16:18
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-01-24 14:11:38
+ * @LastEditTime: 2021-01-24 19:05:20
 -->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -15,7 +15,7 @@
       <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
         <i class="el-icon-goods"></i>弹幕抽奖姬
       </el-menu-item>
-      <a href="/helper" target="_blank">
+      <a href="https://www.acfun.cn/a/ac21341940" target="_blank">
         <el-menu-item>
           <i class="el-icon-question"></i>{{ $t("sidebar.help") }}
         </el-menu-item>
