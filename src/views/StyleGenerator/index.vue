@@ -469,10 +469,12 @@
         <el-form-item :label="$t('stylegen.reverseSlide')">
           <el-switch v-model="form.reverseSlide"></el-switch>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="playAnimation">{{
-            $t("stylegen.playAnimation")
-          }}</el-button>
+        <h3>背景颜色、透明度</h3>
+        <el-form-item :label="`背景颜色`">
+          <el-color-picker
+            show-alpha
+            v-model="form.backgroundColorInLiveChat"
+          ></el-color-picker>
         </el-form-item>
 
         <h3>{{ $t("stylegen.result") }}</h3>
@@ -485,9 +487,15 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
+          <el-button type="primary" @click="playAnimation">
+            预览
+          </el-button>
           <el-button type="primary" @click="copyResult">{{
             $t("stylegen.copy")
           }}</el-button>
+          <el-button type="primary" @click="applyResult">
+            应用
+          </el-button>
           <el-button @click="resetConfig">{{
             $t("stylegen.resetConfig")
           }}</el-button>
@@ -624,7 +632,7 @@ const EXAMPLE_MESSAGES = [
     content: "草",
     privilegeType: 3,
     repeated: 3,
-    medal: { UperID: "35119946", ClubName: "炖猫人", Level: "5" },
+    medal: { UperID: "35119946", ClubName: "好好的人", Level: "5" },
   },
   {
     ...textMessageTemplate,
@@ -633,7 +641,7 @@ const EXAMPLE_MESSAGES = [
     authorType: constants.AUTHRO_TYPE_ADMIN,
     userMark: "权限狗",
     content: "哈哈哈哈哈",
-    medal: { UperID: "35119946", ClubName: "炖猫人", Level: "8" },
+    medal: { UperID: "35119946", ClubName: "好好的人", Level: "8" },
   },
   {
     ...textMessageTemplate,
@@ -652,7 +660,7 @@ const EXAMPLE_MESSAGES = [
     authorType: constants.AUTHRO_TYPE_OWNER,
     content: "加入直播间",
     userMark: "",
-    medal: { UperID: "35119946", ClubName: "炖猫人", Level: "15" },
+    medal: { UperID: "35119946", ClubName: "好好的人", Level: "15" },
   },
   {
     ...quitMessageTemplate,
@@ -675,12 +683,6 @@ const EXAMPLE_MESSAGES = [
     authorType: constants.AUTHRO_TYPE_MEMBER,
     content: "点亮爱心",
   },
-  /*{
-    ...legacyPaidMessageTemplate,
-    id: (nextId++).toString(),
-    authorName: '日日老师',
-    content: '欢迎 日日老师!'
-  },*/
   {
     ...joinGroupMessageTemplate,
     id: (nextId++).toString(),
@@ -788,21 +790,29 @@ export default {
       this.exampleCss = val.replace(/^body\b/gm, "#fakebody");
     },
   },
-  async mounted() {
+  mounted() {
     this.$refs.renderer.addMessages(EXAMPLE_MESSAGES);
-    const fontsRet = await fetch(`http://${this.host}/fonts_list`);
-    const fonts = await fontsRet.json();
+    document.getElementsByTagName("link");
+    fetch(`http://${this.host}/fonts_list`)
+      .then((r) => {
+        return r.json();
+      })
+      .then((fonts) => {
+        this.userFontsList = fonts;
+        fonts.forEach((element) => {
+          this.FONTS.push(element.name);
+        });
+        this.result = stylegen.ejectFont(fonts, this.result);
+      });
 
-    const stickersRet = await fetch(`http://${this.host}/stickers_list`);
-    const stickers = await stickersRet.json();
+    fetch(`http://${this.host}/stickers_list`)
+      .then((r) => {
+        return r.json();
+      })
+      .then((stickers) => {
+        this.stickers = stickers;
+      });
 
-    this.stickers = stickers;
-    window.console.log(stickers);
-    fonts.forEach((element) => {
-      this.FONTS.push(element.name);
-    });
-    this.userFontsList = fonts;
-    this.result = stylegen.ejectFont(fonts, this.result);
     let observer = new MutationObserver(() =>
       this.$refs.renderer.scrollToBottom()
     );
@@ -859,6 +869,24 @@ export default {
     copyResult() {
       this.$refs.result.select();
       document.execCommand("Copy");
+    },
+    applyResult() {
+      fetch(`http://${this.host}/css_upload`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cssPayload: this.result.toString() }),
+      })
+        .then((response) => response.json())
+        .then((r) => {
+          if (r.iRet === 0) {
+            alert("应用成功");
+            window.ipcRenderer.send("applyCss");
+          } else {
+            alert("应用失败");
+          }
+        });
     },
     resetConfig() {
       this.form = { ...stylegen.DEFAULT_CONFIG };

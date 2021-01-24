@@ -8,7 +8,7 @@ export const DEFAULT_CONFIG = {
   showOutlines: true,
   outlineSize: 2,
   outlineColor: '#000000',
-
+  backgroundColorInLiveChat:"rgba(0,255,0,0.1)",
   showMedalName: false,
   showMedalLevel: false,
   medalNameFont: 'Changa One',
@@ -64,7 +64,7 @@ export const DEFAULT_CONFIG = {
   timeLineHeight: 0,
   timeColor: '#999999',
 
-  bgColor: 'rgba(0, 0, 0, 0)',
+  bgColor: 'rgb(0, 0, 0)',
   useBarsInsteadOfBg: false,
   messageBgColor: 'rgba(204, 204, 204, 0)',
   ownerMessageBgColor: 'rgba(255, 214, 0, 0)',
@@ -154,7 +154,7 @@ body {
 
 /* Transparent background. */
 yt-live-chat-renderer {
-  background-color: transparent !important;
+  background: ${config.backgroundColorInLiveChat} !important;
 }
 
 ${getMessageColorStyle('', config.messageBgColor, config.useBarsInsteadOfBg)}
@@ -708,33 +708,22 @@ function genPopTpml(swither = "tmpl0", config) {
         }${config.stickerUrl} ");
         background-repeat: no-repeat;
         background-position: right bottom
-}
-      
-      #message.yt-live-chat-text-message-renderer span:: after{
-  content: '';
-  display: none;
-  border: 6px solid #ffffff00;
-  border - right: 6px solid  #E5E5E5;
-  position: absolute;
-  top: 4px;
-  left: -12px;
-}
-`
-    case "default":
+}`
+    default:
       return `
   #message.yt-live-chat-text-message-renderer span{
 background - color: #e5e5e5;
 padding: 5px 8px;
 display: inline - block;
-border - radius: 4px;
+border-radius: 4px;
 margin: 10px 0 10px 10px;
 position: relative;
 }   
-  #message.yt-live-chat-text-message-renderer span:: after{
+  #message.yt-live-chat-text-message-renderer span::after{
 content: '';
 display: inline;
 border: 6px solid #ffffff00;
-border - right: 6px solid  #E5E5E5;
+border-right: 6px solid #E5E5E5;
 position: absolute;
 top: 4px;
 left: -12px;

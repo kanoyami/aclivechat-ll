@@ -158,3 +158,4 @@ yt-live-chat-text-message-renderer
   src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"
 ></style>
 <style src="@/assets/css/youtube/yt-live-chat-author-chip.css"></style>
+ 

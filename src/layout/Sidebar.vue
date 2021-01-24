@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-23 23:16:18
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-01-23 23:21:50
+ * @LastEditTime: 2021-01-24 14:11:38
 -->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -9,11 +9,11 @@
       <el-menu-item index="/">
         <i class="el-icon-s-home"></i>{{ $t("sidebar.home") }}
       </el-menu-item>
-      <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
-        <i class="el-icon-goods"></i>弹幕抽奖姬
-      </el-menu-item>
       <el-menu-item :index="$router.resolve({ name: 'stylegen' }).href">
         <i class="el-icon-brush"></i>{{ $t("sidebar.stylegen") }}
+      </el-menu-item>
+      <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
+        <i class="el-icon-goods"></i>弹幕抽奖姬
       </el-menu-item>
       <a href="/helper" target="_blank">
         <el-menu-item>
@@ -49,7 +49,7 @@ export default {
   methods: {
     onSelectLanguage(locale) {
       window.localStorage.lang = this.$i18n.locale = locale;
-    }
+    },
   },
 };
 </script>

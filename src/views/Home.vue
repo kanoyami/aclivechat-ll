@@ -237,6 +237,26 @@
     </el-tabs>
 
     <el-divider></el-divider>
+    <el-form-item :label="`弹幕姬置顶`">
+      <el-switch v-model="alwaysTop"></el-switch>
+    </el-form-item>
+    <el-form-item :label="`弹幕姬窗口高度`">
+      <el-input
+        v-model="windowHeight"
+        type="number"
+        :placeholder="`高度`"
+      ></el-input>
+    </el-form-item>
+    <el-form-item :label="`弹幕姬窗口宽度`">
+      <el-input
+        v-model="windowWidth"
+        type="number"
+        :placeholder="`宽度`"
+      ></el-input>
+    </el-form-item>
+    <el-form-item :label="`锁定窗口`">
+      <el-switch v-model="lockedRoom"></el-switch>
+    </el-form-item>
     <el-form-item :label="$t('home.roomUrl')">
       <el-input
         ref="roomUrlInput"
@@ -276,6 +296,10 @@ export default {
       serverConfig: {
         enableTranslate: true,
       },
+      lockedRoom: false,
+      windowWidth: parseInt(window.localStorage.windowWidth || "360"),
+      windowHeight: parseInt(window.localStorage.windowHeight || "800"),
+      alwaysTop: true,
       form: {
         roomId: parseInt(window.localStorage.roomId || "1"),
         ...chatConfig.getLocalConfig(),
@@ -321,11 +345,44 @@ export default {
       window.localStorage.roomId = this.roomIDs[0];
       chatConfig.setLocalConfig(this.form);
     }, 500),
+    windowHeight: _.debounce(function() {
+      window.localStorage.windowHeight = this.windowHeight;
+      chatConfig.setLocalConfig(this.form);
+    }, 500),
+    windowWidth: _.debounce(function() {
+      window.localStorage.windowWidth = this.windowWidth;
+      chatConfig.setLocalConfig(this.form);
+    }, 500),
+    lockedRoom: _.debounce(function() {
+      window.ipcRenderer.send("lockView", {
+        type: "livechat",
+        option: {
+          locked: this.lockedRoom,
+        },
+      });
+    }, 500),
+    alwaysTop: _.debounce(function() {
+      window.ipcRenderer.send("alwaysTop", {
+        type: "livechat",
+        option: {
+          alwaysTop: this.alwaysTop,
+        },
+      });
+    }, 500),
   },
   mounted() {
+    this.removeCss("http://localhost:3378/upload/config/dd.css");
     this.updateServerConfig();
   },
   methods: {
+    removeCss(href) {
+      let links = document.getElementsByTagName("link");
+      for (var i = 0; i < links.length; i++) {
+        if (links[i] && links[i].href && links[i].href.indexOf(href) != -1) {
+          links[i].parentNode.removeChild(links[i]);
+        }
+      }
+    },
     addRoom() {
       this.roomIDs.push(0);
     },
@@ -385,7 +442,15 @@ export default {
         });
     },
     enterRoom() {
-      window.ipcRenderer.send("openView", this.roomUrl)
+      window.ipcRenderer.send("openView", {
+        type: "livechat",
+        url: this.roomUrl,
+        option: {
+          alwaysTop: this.alwaysTop,
+          width: this.windowWidth,
+          height: this.windowHeight,
+        },
+      });
     },
     copyUrl() {
       this.$refs.roomUrlInput.select();

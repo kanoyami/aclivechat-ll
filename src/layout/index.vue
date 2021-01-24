@@ -9,6 +9,7 @@
       width="230px"
       class="sidebar-container"
       :class="{ 'hide-sidebar': hideSidebar }"
+      style="border-right:1px solid rgb(253,76,91)"
     >
       <div class="logo-container">
         <router-link to="/">

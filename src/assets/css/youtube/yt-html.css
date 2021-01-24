@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=ZCOOL%20KuaiLe");
 
 html:not(.style-scope) {
-  --yt-live-chat-background-color: hsl(0, 0%, 100%);
+  --yt-live-chat-background-color: rgba(0, 0, 0,0.1);
   --yt-live-chat-action-panel-background-color: hsla(0, 0%, 93.3%, .4);
   --yt-live-chat-action-panel-background-color-transparent: hsla(0, 0%, 97%, .8);
   --yt-live-chat-mode-change-background-color: hsla(0, 0%, 93.3%, .4);

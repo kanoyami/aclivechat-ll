@@ -1,5 +1,10 @@
+<!--
+ * @Date: 2021-01-24 00:10:15
+ * @LastEditors: kanoyami
+ * @LastEditTime: 2021-01-24 03:15:01
+-->
 <!DOCTYPE html>
-<html lang="zh">
+<html style="background:rgba(0,0,0,0)" lang="zh">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +12,20 @@
     <!-- 重要：如果带referer则获取头像时会403 -->
     <meta name="referrer" content="no-referrer">
     <link rel="shortcut icon" href="<%= BASE_URL %>favicon.ico" type="image/x-icon">
-    <title>ll-aclivechat 令和</title>
+    <style>
+      ::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+    </style>
+   
   </head>
-  <body>
+ 
+  <body style="-webkit-app-region: drag">
+
     <noscript>
-      <strong>We're sorry but blivechat doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but aclivechat-electron doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <link rel="stylesheet" href="http://localhost:3378/upload/config/dd.css" >
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

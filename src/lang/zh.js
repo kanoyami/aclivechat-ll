@@ -1,7 +1,7 @@
 export default {
   sidebar: {
-    home: '首页',
-    stylegen: '样式生成器',
+    home: '弹幕姬',
+    stylegen: '修改样式',
     help: '帮助',
     projectAddress: '项目地址'
   },
@@ -54,7 +54,7 @@ export default {
 
     roomUrl: '房间URL',
     copy: '复制',
-    enterRoom: '进入房间',
+    enterRoom: '启动',
     exportConfig: '导出配置',
     importConfig: '导入配置',
 
@@ -126,7 +126,7 @@ export default {
     slide: '滑动',
     reverseSlide: '反向滑动',
     playAnimation: '播放动画',
-
+    memberColor: '成员颜色',
     result: '结果',
     copy: '复制',
     resetConfig: '恢复默认设置',
