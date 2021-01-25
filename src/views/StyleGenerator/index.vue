@@ -732,6 +732,7 @@ export default {
     },
   },
   mounted() {
+    this.removeCss("http://localhost:3378/upload/config/dd.css");
     this.$refs.renderer.addMessages(EXAMPLE_MESSAGES);
     document.getElementsByTagName("link");
     fetch(`http://${this.host}/fonts_list`)
@@ -760,6 +761,14 @@ export default {
     observer.observe(this.$refs.exampleContainer, { attributes: true });
   },
   methods: {
+    removeCss(href) {
+      let links = document.getElementsByTagName("link");
+      for (var i = 0; i < links.length; i++) {
+        if (links[i] && links[i].href && links[i].href.indexOf(href) != -1) {
+          links[i].parentNode.removeChild(links[i]);
+        }
+      }
+    },
     sendStickerFile() {
       let fontFileObj = document.getElementsByName("sticker")[0].files[0];
       let formData = new FormData();
@@ -822,8 +831,8 @@ export default {
         .then((response) => response.json())
         .then((r) => {
           if (r.iRet === 0) {
-            window.ipcRenderer.send("applyCss",{
-              type:"livechat"
+            window.ipcRenderer.send("applyCss", {
+              type: "livechat",
             });
           } else {
             alert("应用失败");
