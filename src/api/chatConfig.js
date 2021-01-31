@@ -29,7 +29,7 @@ export const DEFAULT_CONFIG = {
   blockKeywords: '',
   blockUsers: '',
   blockMedalLevel: 0,
-
+  cAcfunHelper:false,
   autoTranslate: false
 }
 

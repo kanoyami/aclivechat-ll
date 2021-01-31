@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-24 00:10:15
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-01-31 11:59:11
+ * @LastEditTime: 2021-01-31 21:30:07
 -->
 <template>
   <el-form
@@ -248,6 +248,9 @@
     <el-form-item :label="`弹幕姬置顶`">
       <el-switch v-model="alwaysTop"></el-switch>
     </el-form-item>
+    <el-form-item :label="`兼容直播助手模式`">
+      <el-switch v-model="form.cAcfunHelper"></el-switch>
+    </el-form-item>
     <el-form-item :label="`弹幕姬窗口高度`">
       <el-input
         v-model="windowHeight"
@@ -457,6 +460,7 @@ export default {
           alwaysTop: this.alwaysTop,
           width: this.windowWidth,
           height: this.windowHeight,
+          cAcfunHelper: this.form.cAcfunHelper,
         },
       });
     },
