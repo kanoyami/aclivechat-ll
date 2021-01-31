@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
+import ECharts from 'vue-echarts'
 import {
   Aside, Autocomplete, Badge, Button, Col, ColorPicker, Container, Divider, Form, FormItem, Image,
-  Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip,Select,Option,RadioGroup,Radio
+  DatePicker, Table, TableColumn,
+  Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip, Select, Option, RadioGroup, Radio
 } from 'element-ui'
 import axios from 'axios'
 import AsyncComputed from 'vue-async-computed'
@@ -16,6 +18,10 @@ import Room from './views/Room.vue'
 import NotFound from './views/NotFound.vue'
 import Lotto from './views/Lotto.vue'
 import lottoConfig from './views/LottoConfig.vue'
+import totalLine from './views/gifts/totalLine.vue';
+import daliyTotal from './views/gifts/daliyTotal.vue';
+import giftTotal from './views/gifts/giftTotal.vue';
+
 
 import zh from './lang/zh'
 import en from './lang/en'
@@ -56,6 +62,10 @@ Vue.use(Select)
 Vue.use(RadioGroup)
 Vue.use(Option)
 Vue.use(Radio)
+Vue.use(DatePicker)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.component('v-chart', ECharts)
 Vue.prototype.$message = Message
 
 Vue.config.ignoredElements = [
@@ -71,7 +81,10 @@ const router = new VueRouter({
       children: [
         { path: '', component: Home },
         { path: 'stylegen', name: 'stylegen', component: StyleGenerator },
-        { path: 'lottoConfig', name: 'lottoConfig', component: lottoConfig }
+        { path: 'lottoConfig', name: 'lottoConfig', component: lottoConfig },
+        { path: 'daliyTotal', name: 'daliyTotal', component: daliyTotal },
+        { path: 'giftTotal', name: 'giftTotal', component: giftTotal },
+        { path: 'totalLine', name: 'totalLine', component: totalLine }
       ]
     },
     { path: '/room/:roomId', name: 'room', component: Room },

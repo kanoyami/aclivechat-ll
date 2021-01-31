@@ -272,10 +272,13 @@ export default {
           };
           break;
         case COMMAND_ADD_GIFT: {
+          if (this.config.giftCount) {
+            this.giftCount(data);
+          }
+
           if (!this.config.showGift) {
             break;
           }
-
           let price = data.totalValue / 10000;
           if (data.totalValue < 10) {
             price = 0;
@@ -475,6 +478,14 @@ export default {
         return false;
       }
       return this.$refs.renderer.mergeSimilarOther(authorName, content);
+    },
+    giftCount(data) {
+      window.ipcRenderer.send("gift", {
+        type: "gitf",
+        option: {
+          gift: data,
+        },
+      });
     },
     mergeSimilarGift(authorName, price, giftName, num) {
       if (!this.config.mergeGift) {

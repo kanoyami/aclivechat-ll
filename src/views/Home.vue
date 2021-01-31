@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2021-01-24 00:10:15
+ * @LastEditors: kanoyami
+ * @LastEditTime: 2021-01-31 11:59:11
+-->
 <template>
   <el-form
     :model="form"
@@ -65,6 +70,9 @@
           <el-button :disabled="!muti_room" type="danger" @click="rmRoom"
             >删除房间</el-button
           >
+        </el-form-item>
+        <el-form-item :label="`礼物统计`">
+          <el-switch v-model="form.giftCount"></el-switch>
         </el-form-item>
         <el-form-item :label="$t('home.showDanmaku')">
           <el-switch v-model="form.showDanmaku"></el-switch>

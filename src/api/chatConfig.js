@@ -24,7 +24,7 @@ export const DEFAULT_CONFIG = {
   mergeSimilarOther: true,
   mergeGift: true,
   maxNumber: 60,
-
+  giftCount:true,
   blockGiftDanmaku: false,
   blockKeywords: '',
   blockUsers: '',
