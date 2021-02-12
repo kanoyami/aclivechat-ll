@@ -1,7 +1,7 @@
 <template>
   <div style="margin:10px">
     <el-form label-width="150px">
-      <h3>抽奖姬 in {{ $route.params.roomId }}</h3>
+      <h2>抽奖姬 in {{ $route.params.roomId }}</h2>
       <el-form-item :label="`关键字`" prop="keywords">
         <el-input
           ref="keywordsInput"
@@ -27,12 +27,14 @@
       <el-button type="primary" :disabled="!start" @click="handleLottery"
         >结束</el-button
       >
-      <h3>结果</h3>
-      <p v-for="item in winners" :key="item.userId">
-        恭喜：{{ item.nickname }} id:{{ item.userId }}
-      </p>
+      <h2>结果</h2>
     </el-form>
-
+    <div v-for="item in winners" :key="item.userId">
+      <span> 恭喜：{{ item.nickname }} id:{{ item.userId }}</span>
+      <br />
+      <h3> {{ item.content }}</h3>
+    </div>
+    <br />
     <div>
       <table>
         <thead>
@@ -56,20 +58,14 @@
 
 <script>
 import {} from "@/utils";
+import * as _ from "lodash";
 
 const COMMAND_HEARTBEAT = 0;
 const COMMAND_JOIN_ROOM = 1;
 const COMMAND_ADD_TEXT = 2;
 
-function arrCompose(arr) {
-  const unique = {};
-  arr.forEach((item) => {
-    unique[JSON.stringify(item)] = item;
-  });
-  arr = Object.keys(unique).map(function(u) {
-    return JSON.parse(u);
-  });
-  return arr;
+function arrCompose(arr, index) {
+  return _.uniqBy(arr, index);
 }
 
 export default {
@@ -113,7 +109,7 @@ export default {
     handleStart() {
       this.start = true;
       this.winners = [];
-      this.danmukuArr = []
+      this.danmukuArr = [];
     },
     handleLottery() {
       this.start = false;
@@ -122,7 +118,7 @@ export default {
         const n = Math.floor((Math.random() * 10000000000) % lotteries.length);
         const winner = lotteries[n];
         if (winner === undefined) continue;
-        delete lotteries[n]
+        delete lotteries[n];
         this.winners.push(winner);
         index++;
       }
@@ -204,7 +200,11 @@ export default {
             if (this.danmukuArr.length > 12) this.danmukuArr = [];
             if (data.content.indexOf(this.keywords) === -1) return;
             this.danmukuArr.push(data);
-            this.lottoArr.push({ userId: data.id, nickname: data.authorName });
+            this.lottoArr.push({
+              userId: data.id,
+              nickname: data.authorName,
+              content: data.content,
+            });
           }
           break;
         default:
