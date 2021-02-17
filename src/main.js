@@ -4,7 +4,7 @@ import VueI18n from 'vue-i18n'
 import ECharts from 'vue-echarts'
 import {
   Aside, Autocomplete, Badge, Button, Col, ColorPicker, Container, Divider, Form, FormItem, Image,
-  DatePicker, Table, TableColumn,
+  DatePicker, Table, TableColumn,Card,Tag,Avatar,Alert,
   Input, Main, Menu, MenuItem, Message, Row, Scrollbar, Slider, Submenu, Switch, TabPane, Tabs, Tooltip, Select, Option, RadioGroup, Radio
 } from 'element-ui'
 import axios from 'axios'
@@ -21,7 +21,8 @@ import lottoConfig from './views/LottoConfig.vue'
 import totalLine from './views/gifts/totalLine.vue';
 import daliyTotal from './views/gifts/daliyTotal.vue';
 import giftTotal from './views/gifts/giftTotal.vue';
-
+import songOrderConfig from './views/SongOrderConfig.vue';
+import songOrder from './views/SongOrder.vue'
 
 import zh from './lang/zh'
 import en from './lang/en'
@@ -65,6 +66,10 @@ Vue.use(Radio)
 Vue.use(DatePicker)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Card)
+Vue.use(Tag)
+Vue.use(Avatar)
+Vue.use(Alert)
 Vue.component('v-chart', ECharts)
 Vue.prototype.$message = Message
 
@@ -84,11 +89,13 @@ const router = new VueRouter({
         { path: 'lottoConfig', name: 'lottoConfig', component: lottoConfig },
         { path: 'daliyTotal', name: 'daliyTotal', component: daliyTotal },
         { path: 'giftTotal', name: 'giftTotal', component: giftTotal },
-        { path: 'totalLine', name: 'totalLine', component: totalLine }
+        { path: 'totalLine', name: 'totalLine', component: totalLine },
+        { path: 'songOrderConfig', name: 'songOrderConfig', component: songOrderConfig }
       ]
     },
     { path: '/room/:roomId', name: 'room', component: Room },
     { path: '/lotto/:roomId', name: 'lotto', component: Lotto },
+    { path: '/songOrder/:roomId', name: 'songOrder', component: songOrder },
     { path: '*', component: NotFound }
   ]
 })

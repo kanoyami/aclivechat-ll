@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-23 23:16:18
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-01-31 20:13:07
+ * @LastEditTime: 2021-02-17 22:31:31
 -->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -12,9 +12,18 @@
       <el-menu-item :index="$router.resolve({ name: 'stylegen' }).href">
         <i class="el-icon-brush"></i>{{ $t("sidebar.stylegen") }}
       </el-menu-item>
+            <el-submenu index="nul1">
+        <template slot="title">
+          <i class="el-icon-s-tools"></i>工具集
+        </template>
       <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
         <i class="el-icon-goods"></i>弹幕抽奖姬
       </el-menu-item>
+      <el-menu-item :index="$router.resolve({ name: 'songOrderConfig' }).href">
+        <i class="el-icon-headset"></i>点歌姬
+      </el-menu-item>
+      </el-submenu>
+
       <el-submenu index="nul2">
         <template slot="title">
           <i class="el-icon-chat-line-square"></i>礼物统计
