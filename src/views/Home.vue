@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-24 00:10:15
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-01-31 21:30:07
+ * @LastEditTime: 2021-02-18 12:40:51
 -->
 <template>
   <el-form
@@ -50,7 +50,7 @@
   >
     <el-tabs>
       <el-tab-pane :label="$t('home.general')">
-        <el-form-item :label="`联动模式`">
+        <el-form-item :hidden="form.isOfficial" :label="`联动模式`">
           <el-switch v-model="muti_room"></el-switch>
         </el-form-item>
 
@@ -71,19 +71,22 @@
             >删除房间</el-button
           >
         </el-form-item>
-        <el-form-item :label="`礼物统计`">
+        <el-form-item :hidden="form.isOfficial" :label="`礼物统计`">
           <el-switch v-model="form.giftCount"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showDanmaku')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showDanmaku')">
           <el-switch v-model="form.showDanmaku"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showEqualMedal')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.showEqualMedal')"
+        >
           <el-switch v-model="form.showEqualMedal"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showFollow')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showFollow')">
           <el-switch v-model="form.showFollow"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.followText')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.followText')">
           <el-input
             v-model="form.followText"
             type="textarea"
@@ -91,10 +94,10 @@
             :placeholder="$t('home.followTextDefault')"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.showJoin')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showJoin')">
           <el-switch v-model="form.showJoin"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.joinText')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.joinText')">
           <el-input
             v-model="form.joinText"
             type="textarea"
@@ -102,10 +105,10 @@
             :placeholder="$t('home.joinTextDefault')"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.showQuit')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showQuit')">
           <el-switch v-model="form.showQuit"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.quitText')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.quitText')">
           <el-input
             v-model="form.quitText"
             type="textarea"
@@ -113,10 +116,10 @@
             :placeholder="$t('home.quitTextDefault')"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.showLove')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showLove')">
           <el-switch v-model="form.showLove"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.loveText')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.loveText')">
           <el-input
             v-model="form.loveText"
             type="textarea"
@@ -124,10 +127,16 @@
             :placeholder="$t('home.loveTextDefault')"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.showJoinGroup')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.showJoinGroup')"
+        >
           <el-switch v-model="form.showJoinGroup"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.joinGroupText')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.joinGroupText')"
+        >
           <el-input
             v-model="form.joinGroupText"
             type="textarea"
@@ -135,42 +144,63 @@
             :placeholder="$t('home.joinGroupTextDefault')"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.showGift')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.showGift')">
           <el-switch v-model="form.showGift"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showGiftPrice')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.showGiftPrice')"
+        >
           <el-switch v-model="form.showGiftPrice"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showACCoinInstead')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.showACCoinInstead')"
+        >
           <el-switch v-model="form.showACCoinInstead"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.showGiftPngInstead')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.showGiftPngInstead')"
+        >
           <el-switch v-model="form.showGiftPngInstead"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.mergeSimilarDanmaku')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.mergeSimilarDanmaku')"
+        >
           <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.mergeSimilarOther')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.mergeSimilarOther')"
+        >
           <el-switch v-model="form.mergeSimilarOther"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.mergeGift')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.mergeGift')">
           <el-switch v-model="form.mergeGift"></el-switch>
         </el-form-item>
-        <el-form-item :label="$t('home.minGiftPrice')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.minGiftPrice')"
+        >
           <el-input
             v-model.number="form.minGiftPrice"
             type="number"
             min="0"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.exchangeRate')">
+        <el-form-item
+          :hidden="form.isOfficial"
+          :label="$t('home.exchangeRate')"
+        >
           <el-input
             v-model.number="form.exchangeRate"
             type="number"
             min="0"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('home.maxNumber')">
+        <el-form-item :hidden="form.isOfficial" :label="$t('home.maxNumber')">
           <el-input
             v-model.number="form.maxNumber"
             type="number"
@@ -179,7 +209,7 @@
         </el-form-item>
       </el-tab-pane>
 
-      <el-tab-pane :label="`弹幕姬账号`">
+      <el-tab-pane :disabled="form.isOfficial" :label="`弹幕姬账号`">
         <span
           >用于登录弹幕姬的账号，推荐使用小号,可以设置多组账号，每次会随机使用一个</span
         >
@@ -213,7 +243,7 @@
         <el-button type="primary" @click="submitAccount">提交</el-button>
       </el-tab-pane>
 
-      <el-tab-pane :label="$t('home.block')">
+      <el-tab-pane :disabled="form.isOfficial" :label="$t('home.block')">
         <el-form-item :label="$t('home.giftDanmaku')">
           <el-switch v-model="form.blockGiftDanmaku"></el-switch>
         </el-form-item>
@@ -244,6 +274,35 @@
       </el-tab-pane>
     </el-tabs>
 
+    <el-divider></el-divider>
+    <el-form-item :label="`是否官方`">
+      <el-switch v-model="form.isOfficial"></el-switch>
+    </el-form-item>
+    <el-form-item :label="`只显示本主播的守护徽章`">
+      <el-switch v-model="form.officialConfig.showAuthorclubOnly"></el-switch>
+    </el-form-item>
+    <el-form-item :label="`显示用户头像`">
+      <el-switch v-model="form.officialConfig.showAvatar"></el-switch>
+    </el-form-item>
+    <el-form-item :label="`直播间消息皮肤`">
+      <el-select
+        :default-first-option="true"
+        v-model="form.officialConfig.theme"
+      >
+        <el-option :label="`风格01`" :value="`default`" />
+        <el-option :label="`风格02`" :value="`hanyi`" />
+        <el-option :label="`风格03`" :value="`lanting`" />
+      </el-select>
+    </el-form-item>
+    <el-form-item :label="`背景颜色、透明度`">
+      <el-color-picker
+        show-alpha
+        v-model="form.officialConfig.backgroundColor"
+      ></el-color-picker>
+    </el-form-item>
+    <span style="font-size:12px"
+      >打开是否官方时使用官方弹幕姬，样式定制将不可用，但是窗口化前台及透明置顶仍然可用</span
+    >
     <el-divider></el-divider>
     <el-form-item :label="`弹幕姬置顶`">
       <el-switch v-model="alwaysTop"></el-switch>
@@ -326,8 +385,16 @@ export default {
       if (this.form.roomId === "") {
         return "";
       }
+
       let query = { ...this.form };
       delete query.roomId;
+      if (this.form.isOfficial) {
+        return `https://live.acfun.cn/room/${this.roomIDs.join(":")}?theme=${
+          this.form.officialConfig.theme
+        }&showAuthorclubOnly=${
+          this.form.officialConfig.showAuthorclubOnly
+        }&showAvatar=${this.form.officialConfig.showAvatar}`;
+      }
       if (query.followText === "") {
         query.followText = this.$t("home.followTextDefault");
       }
@@ -457,6 +524,8 @@ export default {
         type: "livechat",
         url: this.roomUrl,
         option: {
+          isOfficial: this.form.isOfficial,
+          officialBackgroundColor: this.form.officialConfig.backgroundColor,
           alwaysTop: this.alwaysTop,
           width: this.windowWidth,
           height: this.windowHeight,

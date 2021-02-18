@@ -1,3 +1,8 @@
+/*
+ * @Date: 2021-01-24 00:10:15
+ * @LastEditors: kanoyami
+ * @LastEditTime: 2021-02-18 12:41:34
+ */
 import { mergeConfig } from '@/utils'
 
 export const DEFAULT_CONFIG = {
@@ -30,7 +35,14 @@ export const DEFAULT_CONFIG = {
   blockUsers: '',
   blockMedalLevel: 0,
   cAcfunHelper:false,
-  autoTranslate: false
+  autoTranslate: false,
+  isOfficial:true,
+  officialConfig:{
+    showAuthorclubOnly:false,
+    showAvatar:true,
+    theme:"default",
+    backgroundColor:"rgba(0,0,0,0.1)"
+  }
 }
 
 export const VERSION = "0.4.1";

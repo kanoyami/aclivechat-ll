@@ -1,11 +1,11 @@
 <!--
  * @Date: 2021-02-17 22:13:31
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-02-18 00:47:56
+ * @LastEditTime: 2021-02-18 01:16:52
 -->
 <template>
   <el-row style="background:white;height:100%;overflow-y: scroll;">
-    <el-alert title="弹幕输入#点歌 歌名 进行点歌" type="info"> </el-alert>
+    <el-alert title="弹幕输入#点歌 歌名 进行点歌，例如：#点歌 我会自己上厕所" type="info"> </el-alert>
     <el-col :span="12">
       <h3 style="margin-left:24px">未唱歌曲</h3>
 
