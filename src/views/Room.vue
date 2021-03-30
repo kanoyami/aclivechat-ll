@@ -272,7 +272,7 @@ export default {
           };
           break;
         case COMMAND_ADD_GIFT: {
-          if (this.config.giftCount) {
+          if (this.config.giftCount &&  window.ipcRenderer) {
             this.giftCount(data);
           }
 
