@@ -11,8 +11,6 @@
           <span id="chip-badges" class="style-scope yt-live-chat-author-chip"></span>
         </span>
         <span id="chat-badges" class="style-scope yt-live-chat-author-chip">
-          <author-badge class="style-scope yt-live-chat-author-chip" :isAdmin="authorType === 2"
-            :privilegeType="privilegeType"></author-badge>
         </span>
       </yt-live-chat-author-chip>
       <span id="joinGroupMessage" class="style-scope yt-live-chat-text-message-renderer">{{
@@ -26,7 +24,6 @@
 </template>
 
 <script>
-import AuthorBadge from './AuthorBadge.vue'
 import * as constants from './constants'
 import * as utils from '@/utils'
 
@@ -37,7 +34,6 @@ const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 export default {
   name: 'JoinGroupMessage',
   components: {
-    AuthorBadge
   },
   props: {
     avatarUrl: String,

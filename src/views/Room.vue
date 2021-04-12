@@ -272,7 +272,7 @@ export default {
           };
           break;
         case COMMAND_ADD_GIFT: {
-          if (this.config.giftCount &&  window.ipcRenderer) {
+          if (this.config.giftCount && window.ipcRenderer) {
             this.giftCount(data);
           }
 
@@ -355,12 +355,11 @@ export default {
           }
           message = {
             id: data.id,
-            type: constants.MESSAGE_TYPE_FOLLOW,
-            avatarUrl: data.avatarUrl,
+            type: constants.MESSAGE_TYPE_JOIN_GROUP,
             time: new Date(data.timestamp * 1000),
             authorName: data.authorName,
-            authorType: data.authorType,
-            privilegeType: data.privilegeType,
+            authorType: data.authorType || 0,
+            privilegeType: data.privilegeType || 0,
             content: this.config.joinGroupText,
           };
           break;
