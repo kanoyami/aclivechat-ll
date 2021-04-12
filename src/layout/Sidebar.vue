@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-23 23:16:18
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-02-17 22:31:31
+ * @LastEditTime: 2021-04-03 17:04:33
 -->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -12,16 +12,18 @@
       <el-menu-item :index="$router.resolve({ name: 'stylegen' }).href">
         <i class="el-icon-brush"></i>{{ $t("sidebar.stylegen") }}
       </el-menu-item>
-            <el-submenu index="nul1">
+      <el-submenu index="nul1">
         <template slot="title">
           <i class="el-icon-s-tools"></i>工具集
         </template>
-      <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
-        <i class="el-icon-goods"></i>弹幕抽奖姬
-      </el-menu-item>
-      <el-menu-item :index="$router.resolve({ name: 'songOrderConfig' }).href">
-        <i class="el-icon-headset"></i>点歌姬
-      </el-menu-item>
+        <el-menu-item :index="$router.resolve({ name: 'lottoConfig' }).href">
+          <i class="el-icon-goods"></i>弹幕抽奖姬
+        </el-menu-item>
+        <el-menu-item
+          :index="$router.resolve({ name: 'songOrderConfig' }).href"
+        >
+          <i class="el-icon-headset"></i>点歌姬
+        </el-menu-item>
       </el-submenu>
 
       <el-submenu index="nul2">
@@ -35,7 +37,7 @@
             { pathName: 'giftTotal', name: '礼物详细' },
           ]"
           :key="pathName"
-          :index="$router.resolve({ name: pathName}).href"
+          :index="$router.resolve({ name: pathName }).href"
           >{{ name }}</el-menu-item
         >
       </el-submenu>
@@ -50,12 +52,15 @@
         </el-menu-item>
       </a>
     </el-menu>
+    <div style="bottom:0">
+      <img width="100%" src="/static/img/ll.png" />
+    </div>
   </el-scrollbar>
 </template>
 
 <script>
 export default {
-  name: "Sidebar"
+  name: "Sidebar",
 };
 </script>
 
