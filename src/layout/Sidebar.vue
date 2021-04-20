@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-23 23:16:18
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-04-03 17:04:33
+ * @LastEditTime: 2021-04-20 22:01:26
 -->
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -23,6 +23,11 @@
           :index="$router.resolve({ name: 'songOrderConfig' }).href"
         >
           <i class="el-icon-headset"></i>点歌姬
+        </el-menu-item>
+        <el-menu-item
+          :index="$router.resolve({ name: 'showGiftCalcConfig' }).href"
+        >
+          <i class="el-icon-headset"></i>礼物姬
         </el-menu-item>
       </el-submenu>
 

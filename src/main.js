@@ -23,6 +23,8 @@ import daliyTotal from './views/gifts/daliyTotal.vue';
 import giftTotal from './views/gifts/giftTotal.vue';
 import songOrderConfig from './views/SongOrderConfig.vue';
 import songOrder from './views/SongOrder.vue'
+import showGiftCalc from './views/ShowGiftCalc.vue'
+import showGiftCalcConfig from './views/ShowGiftCalcConfig.vue'
 
 import zh from './lang/zh'
 import en from './lang/en'
@@ -90,12 +92,14 @@ const router = new VueRouter({
         { path: 'daliyTotal', name: 'daliyTotal', component: daliyTotal },
         { path: 'giftTotal', name: 'giftTotal', component: giftTotal },
         { path: 'totalLine', name: 'totalLine', component: totalLine },
-        { path: 'songOrderConfig', name: 'songOrderConfig', component: songOrderConfig }
+        { path: 'songOrderConfig', name: 'songOrderConfig', component: songOrderConfig },
+        { path: 'showGiftCalcConfig', name: 'showGiftCalcConfig', component: showGiftCalcConfig }
       ]
     },
     { path: '/room/:roomId', name: 'room', component: Room },
     { path: '/lotto/:roomId', name: 'lotto', component: Lotto },
     { path: '/songOrder/:roomId', name: 'songOrder', component: songOrder },
+    { path: '/showGiftCalc/:roomId', name: 'showGiftCalc', component: showGiftCalc },
     { path: '*', component: NotFound }
   ]
 })
