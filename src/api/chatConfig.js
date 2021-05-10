@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-24 00:10:15
  * @LastEditors: kanoyami
- * @LastEditTime: 2021-02-18 12:41:34
+ * @LastEditTime: 2021-05-10 23:18:37
  */
 import { mergeConfig } from '@/utils'
 
@@ -44,8 +44,6 @@ export const DEFAULT_CONFIG = {
     backgroundColor:"rgba(0,0,0,0.1)"
   }
 }
-
-export const VERSION = "0.4.1";
 
 export function setLocalConfig(config) {
   config = mergeConfig(config, DEFAULT_CONFIG)

@@ -118,6 +118,37 @@ export const PRICE_CONFIGS = [
   }
 ]
 
+export const PRICE_STICKER_CONFIGS = [
+  { // $100红
+    price: 100 * EXCHANGE_RATE,
+    num:6
+  },
+  { // $50品红
+    price: 50 * EXCHANGE_RATE,
+    num:5
+  },
+  { // $20橙
+    price: 20 * EXCHANGE_RATE,
+    num:4
+  },
+  { // $10黄
+    price: 10 * EXCHANGE_RATE,
+    num:3
+  },
+  { // $5绿
+    price: 5 * EXCHANGE_RATE,
+    num:2
+  },
+  { // $2浅蓝
+    price: 2 * EXCHANGE_RATE,
+    num:1
+  },
+  { // $1蓝
+    price: 1 * EXCHANGE_RATE,
+    num:1
+  }
+]
+
 export function getPriceConfig(price) {
   for (const config of PRICE_CONFIGS) {
     if (price >= config.price) {
@@ -127,6 +158,15 @@ export function getPriceConfig(price) {
   return PRICE_CONFIGS[PRICE_CONFIGS.length - 1]
 }
 
+
+export function getPriceStickerConfig(price) {
+  for (const config of PRICE_STICKER_CONFIGS) {
+    if (price >= config.price) {
+      return config
+    }
+  }
+  return PRICE_STICKER_CONFIGS[PRICE_STICKER_CONFIGS.length - 1]
+}
 export function getShowContent(message) {
   if (message.translation) {
     return `${message.content}（${message.translation}）`

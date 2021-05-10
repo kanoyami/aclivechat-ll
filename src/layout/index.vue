@@ -40,7 +40,6 @@
 
 <script>
 import Sidebar from "./Sidebar.vue";
-import * as chatConfig from "@/api/chatConfig";
 
 export default {
   name: "Layout",
@@ -49,7 +48,7 @@ export default {
   },
   data() {
     return {
-      VERSION: chatConfig.VERSION,
+      VERSION: '0.0.0',
       REMOTE_VERSION: "",
       isMobile: false,
       hideSidebar: true,
@@ -65,7 +64,7 @@ export default {
     const str = await fetch(`http://${host}/version`);
     const ver = await str.json();
     const remoteVersion = await fetch(
-      `http://livesongs.sdrsks.com.cn:5818/version`
+      `http://139.186.70.87:5818/version`
     );
     const remoteVer = await remoteVersion.json();
     this.VERSION = ver.version;

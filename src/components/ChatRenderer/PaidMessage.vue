@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2021-05-10 22:55:14
+ * @LastEditors: kanoyami
+ * @LastEditTime: 2021-05-11 00:47:07
+-->
 <template>
   <yt-live-chat-paid-message-renderer class="style-scope yt-live-chat-item-list-renderer" allow-animations
     :show-only-header="!content" :style="{
@@ -26,6 +31,7 @@
           content
         }}</div>
       </div>
+      <div class="pasteimg"><img :src="pricesticker" style="height:100%"></div>
     </div>
   </yt-live-chat-paid-message-renderer>
 </template>
@@ -75,6 +81,9 @@ export default {
     color() {
       return constants.getPriceConfig(this.price / this.exchangeRate).colors
     },
+    pricesticker() {
+      return `/static/img/pricestickers/astamama-${constants.getPriceStickerConfig(this.price / this.exchangeRate).num}.png`
+    },
     priceText() {
       if (this.showACCoinInstead) {
         return parseInt(this.price * 10) + "AC币"
@@ -89,3 +98,11 @@ export default {
 </script>
 
 <style src="@/assets/css/youtube/yt-live-chat-paid-message-renderer.css"></style>
+<style>
+.pasteimg{
+  position:absolute;
+  height:100%;
+  bottom: 0;
+  right: 0;
+}
+</style>
