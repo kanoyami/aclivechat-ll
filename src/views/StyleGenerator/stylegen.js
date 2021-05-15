@@ -8,7 +8,7 @@ export const DEFAULT_CONFIG = {
   showOutlines: true,
   outlineSize: 2,
   outlineColor: '#000000',
-  backgroundColorInLiveChat: "rgba(0,255,0,0.1)",
+  backgroundColorInLiveChat: "rgba(0,0,0,0.1)",
   showMedalName: false,
   showMedalLevel: false,
   medalNameFont: 'Changa One',
