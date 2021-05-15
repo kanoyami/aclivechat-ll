@@ -256,6 +256,7 @@ export default {
           ) {
             break;
           }
+         
           message = {
             id: data.id,
             type: constants.MESSAGE_TYPE_TEXT,
@@ -264,12 +265,14 @@ export default {
             authorName: data.authorName,
             authorType: data.authorType,
             content: data.content,
+            stickerSrc:data.stickerSrc||null,
             userMark: data.userMark,
             medal: data.medalInfo,
             privilegeType: data.privilegeType,
             repeated: 1,
             translation: data.translation,
           };
+           window.console.log(message)
           break;
         case COMMAND_ADD_GIFT: {
           if (this.config.giftCount && window.ipcRenderer) {

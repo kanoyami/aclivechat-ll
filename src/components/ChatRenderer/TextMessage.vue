@@ -54,7 +54,12 @@
           ></author-badge>
         </span>
       </yt-live-chat-author-chip>
-      <div id="message" class="style-scope yt-live-chat-text-message-renderer">
+
+      <div
+        v-if="stickerSrc === null"
+        id="message"
+        class="style-scope yt-live-chat-text-message-renderer"
+      >
         <span>
           {{ content }}
         </span>
@@ -66,6 +71,9 @@
           :style="{ '--repeated-mark-color': repeatedMarkColor }"
         >
         </el-badge>
+      </div>
+      <div v-else>
+        <img class="img-sticker" :src="stickerSrc" />
       </div>
     </div>
   </yt-live-chat-text-message-renderer>
@@ -90,6 +98,7 @@ export default {
   props: {
     avatarUrl: String,
     time: Date,
+    stickerSrc: String,
     authorName: String,
     authorType: Number,
     content: String,
@@ -152,10 +161,13 @@ yt-live-chat-text-message-renderer
   background-color: var(--repeated-mark-color) !important;
   border: none;
 }
+
+.img-sticker {
+  width: 50%;
+}
 </style>
 
 <style
   src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"
 ></style>
 <style src="@/assets/css/youtube/yt-live-chat-author-chip.css"></style>
- 

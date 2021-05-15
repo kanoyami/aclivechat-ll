@@ -15,7 +15,7 @@
                 :authorName="message.authorName" :authorType="message.authorType" :content="getShowContent(message)"
                 :privilegeType="message.privilegeType" :repeated="message.repeated" :userMark="message.userMark"
                 :medal="message.medal" :getShowMedal="getShowMedal(message.medal)"
-                :medalDisplayColorLV="getMedalLVType(message.medal)"></text-message>
+                :medalDisplayColorLV="getMedalLVType(message.medal)" :stickerSrc="message.stickerSrc"></text-message>
               <paid-message :key="message.uniqueId" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer" :price="message.price"
                 :avatarUrl="message.avatarUrl" :webpPicUrl="message.webpPicUrl" :authorName="message.authorName"
